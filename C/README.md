@@ -1,149 +1,129 @@
-# C Notlarım ve Algoritmalar
+# C Language
 
-Bu repo içinde C dili hakkında tuttuğum notlar ve C dilinde yazılmış algoritmalar yer alıyor. Dokümanın amacı ileride ihtiyaç duyduğum zaman geriye dönüp `cheat sheet` gibi bu kaynaktan faydalanabilmek.
+Bu doküman C dili hakkında hatırlatıcı ve pratik bilgiler vermektir.
 
-Bu doküman eğitim materyali değildir. İçeriği incelerken bazı eksikler, yazım hataları veya yanlış anlatımlar bulabilirsiniz, `pull request`'ler sevgiyle karşılanacaktır. 
-
-# İçerik (Table Of Contents)
+# Table Of Contents
 
 <!-- toc -->
 
-- [C Dilinin Zorlukları ve Avantajları](#c-dilinin-zorluklari-ve-avantajlari)
-- [C Dilini Diğer Dillerden Ayıran Temel Özellikleri Nelerdir?](#c-dilini-diger-dillerden-ayiran-temel-ozellikleri-nelerdir)
-- [C Dili Hangi Alanlarda Kullanılıyor?](#c-dili-hangi-alanlarda-kullaniliyor)
-- [C Dili Standartları Nedir?](#c-dili-standartlari-nedir)
-  * [Standart Gelişimi](#standart-gelisimi)
+- [Why C Language](#why-c-language)
+- [Where Is C Language Used?](#where-is-c-language-used)
+- [C Language Standarts](#c-language-standarts)
+  * [Evolution](#evolution)
+  * [Other C Language Standarts](#other-c-language-standarts)
     + [Embedded C](#embedded-c)
     + [MISRA C](#misra-c)
-  * [Derleyicim Hangi Standartı Kullanıyor?](#derleyicim-hangi-standarti-kullaniyor)
+  * [Which Standard Does the Compiler Use?](#which-standard-does-the-compiler-use)
 - [C vs C++](#c-vs-c)
-- [Geliştirme Ortamı](#gelistirme-ortami)
-  * [Derleyici](#derleyici)
-    + [Derleyici Nasıl Çalışır?](#derleyici-nasil-calisir)
-    + [Derleyici'ye Kütüphane Eklemek](#derleyiciye-kutuphane-eklemek)
-    + [Derleyici Direktifleri](#derleyici-direktifleri)
-    + [GCC Kullanımı](#gcc-kullanimi)
-      - [COMPILING AND LINKING](#compiling-and-linking)
-      - [ASSEMBLY](#assembly)
-      - [C STANDART SELECTION](#c-standart-selection)
-      - [STATIC LIBRARY USAGE](#static-library-usage)
-      - [DYNAMIC LIBRARY USAGE](#dynamic-library-usage)
-      - [Genel Amaçlı](#genel-amacli)
-    + [Make Programı ve Makefile Dosyası](#make-programi-ve-makefile-dosyasi)
-      - [Örnek Bir Makefile Dosyası](#ornek-bir-makefile-dosyasi)
-      - [Kural Adına Sahip Dosya Kullanabilmek](#kural-adina-sahip-dosya-kullanabilmek)
-    + [Optimizasyon Nedir?](#optimizasyon-nedir)
-  * [Güzel Kod Yazmak (Clean Code)](#guzel-kod-yazmak-clean-code)
-    + [Güzel Kod Yazmanın Bazı Kuralları](#guzel-kod-yazmanin-bazi-kurallari)
+- [Development Environment](#development-environment)
+  * [Compiler](#compiler)
+    + [How Does the Compiler Work?](#how-does-the-compiler-work)
+    + [Adding a Library to The Compiler](#adding-a-library-to-the-compiler)
+    + [Compiler Directives](#compiler-directives)
+    + [GCC Usage](#gcc-usage)
+      - [General Purpose](#general-purpose)
+      - [Compiling and Linking](#compiling-and-linking)
+      - [Assembly](#assembly)
+      - [Compiler C Language Standart Selection](#compiler-c-language-standart-selection)
+      - [Static Library Usage](#static-library-usage)
+      - [Dynamic Library Usage](#dynamic-library-usage)
+    + [Make and Makefile](#make-and-makefile)
+      - [Makefile Sample](#makefile-sample)
+      - [Using a File with Rule Name](#using-a-file-with-rule-name)
+    + [What is Optimization?](#what-is-optimization)
   * [Debugger](#debugger)
-    + [GDB Nasıl Kullanılır?](#gdb-nasil-kullanilir)
-  * [Text Editörü: Sublime Text 3](#text-editoru-sublime-text-3)
-    + [Tab Tuşlarını Space Tuşlarına Çevirmek](#tab-tuslarini-space-tuslarina-cevirmek)
-    + [Kolon Sayısını 80 ile Sınırlamak](#kolon-sayisini-80-ile-sinirlamak)
-    + [Eklenti: SublimeLinter ve SublimeLinter-gcc](#eklenti-sublimelinter-ve-sublimelinter-gcc)
-- [Main ile Yazdığımız Programdan Değer Döndürmek](#main-ile-yazdigimiz-programdan-deger-dondurmek)
-- [C Dili Özellikleri](#c-dili-ozellikleri)
-  * [Dizi Tanımlama](#dizi-tanimlama)
-  * [Dizi ve Ram Bellek İlişkisi](#dizi-ve-ram-bellek-i%CC%87liskisi)
+    + [GDB Usage](#gdb-usage)
+  * [Text Editor: Sublime Text 3](#text-editor-sublime-text-3)
+    + [Settings](#settings)
+      - [Converting Tabs Characters to Space](#converting-tabs-characters-to-space)
+      - [Limiting Column Size](#limiting-column-size)
+    + [Plugins](#plugins)
+      - [SublimeLinter and SublimeLinter-gcc](#sublimelinter-and-sublimelinter-gcc)
+      - [EditorConfig](#editorconfig)
+- [Returns Value from Main Function](#returns-value-from-main-function)
+- [C Language Features](#c-language-features)
+  * [Array Definitions](#array-definitions)
+  * [Array-Memory Relation](#array-memory-relation)
   * [Null, False, 0, 0x0](#null-false-0-0x0)
-  * [Veri Tipleri](#veri-tipleri)
-    + [Genel Veri Tipleri](#genel-veri-tipleri)
-    + [Özel Veri Tipleri](#ozel-veri-tipleri)
-  * [Konsoldan Argüman Almak](#konsoldan-arguman-almak)
-  * [Prototype Yapısı](#prototype-yapisi)
-  * [Custom Data Types: Typedef ve Struct](#custom-data-types-typedef-ve-struct)
-  * [Bitwise Operatörler](#bitwise-operatorler)
-  * [Pointer](#pointer)
-    + [Birbirini İşaret Eden Pointer Yapısı ve Yıldız Yapısı](#birbirini-i%CC%87saret-eden-pointer-yapisi-ve-yildiz-yapisi)
+  * [Data Types](#data-types)
+    + [General Data Types](#general-data-types)
+    + [Custom Data Types](#custom-data-types)
+  * [Getting Arguments from Console](#getting-arguments-from-console)
+  * [Prototype](#prototype)
+  * [Custom Data Types: Typedef and Struct](#custom-data-types-typedef-and-struct)
+  * [Bitwise Operators](#bitwise-operators)
+  * [Pointers](#pointers)
+    + [Pointing A Pointer To Another Pointer And Pointer Star Definition](#pointing-a-pointer-to-another-pointer-and-pointer-star-definition)
     + [Fear of pointers: What is the output of the following C program?](#fear-of-pointers-what-is-the-output-of-the-following-c-program)
-  * [String Veri Yapısı](#string-veri-yapisi)
-  * [Başlık Dosyası (Header File)](#baslik-dosyasi-header-file)
+  * [String Data Type](#string-data-type)
+  * [Header File](#header-file)
     + [Header Guard](#header-guard)
   * [Const, Static, Volatile](#const-static-volatile)
-  * [Taşınabilir, Güvenli Değişken Kullanımı](#tasinabilir-guvenli-degisken-kullanimi)
-- [Dinamik Bellek Yönetimi](#dinamik-bellek-yonetimi)
+  * [Portable, Secure Variable Usage](#portable-secure-variable-usage)
+- [Dynamic Memory Usage](#dynamic-memory-usage)
   * [Malloc](#malloc)
   * [Realoc](#realoc)
   * [Free](#free)
-- [Algoritmalar](#algoritmalar)
-  * [Sıralama Algoritmaları](#siralama-algoritmalari)
-    + [Selection Sort](#selection-sort)
-    + [Bubble Sort](#bubble-sort)
-    + [Merge Sort](#merge-sort)
-  * [Dinamik Bellek Algoritmaları](#dinamik-bellek-algoritmalari)
-    + [Linked List](#linked-list)
-      - [Singly-Linked List](#singly-linked-list)
-      - [Doubly-Linked List](#doubly-linked-list)
-    + [Hash Table](#hash-table)
-    + [Trie](#trie)
-  * [Buffer Algoritmaları](#buffer-algoritmalari)
-    + [Ring Buffer](#ring-buffer)
-- [Olası Algoritmik Hatalar](#olasi-algoritmik-hatalar)
+- [Some Algorithm Errors](#some-algorithm-errors)
   * [Swap Values](#swap-values)
-- [Bazı Kütüphaneler](#bazi-kutuphaneler)
+- [Useful Libraries](#useful-libraries)
   * [String](#string)
   * [Ctype](#ctype)
   * [Math](#math)
-- [Dosya İşlemleri](#dosya-i%CC%87slemleri)
-- [Statik ve Dinamik Kütüphaneler](#statik-ve-dinamik-kutuphaneler)
-  * [Statik Kütüphaneler](#statik-kutuphaneler)
-    + [Statik Kütüphane Yaratmak](#statik-kutuphane-yaratmak)
-  * [Dinamik (Paylaşımlı) Kütüphaneler](#dinamik-paylasimli-kutuphaneler)
-    + [Dinamik Kütüphane Oluşturmak](#dinamik-kutuphane-olusturmak)
-- [Bazı Teknik Terimler](#bazi-teknik-terimler)
+- [File Operations](#file-operations)
+- [Static and Dynamic Libraries](#static-and-dynamic-libraries)
+  * [Static Library](#static-library)
+    + [Creating a Static Library](#creating-a-static-library)
+  * [Dynamic (Shared) Libraries](#dynamic-shared-libraries)
+    + [Creating a Dynamic Library](#creating-a-dynamic-library)
+- [Some Terms](#some-terms)
   * [Abstraction](#abstraction)
   * [Best Practice](#best-practice)
   * [Rubber Duck Debugging](#rubber-duck-debugging)
   * [Recursion](#recursion)
   * [Garbage Collection](#garbage-collection)
   * [Heap ve Stack](#heap-ve-stack)
-  * [Asymptotic Analysis](#asymptotic-analysis)
-    + [Big-0 Notation](#big-0-notation)
-    + [Omega Notation](#omega-notation)
-    + [Teta Notation](#teta-notation)
-  * [Hatalar](#hatalar)
+  * [Program Errors](#program-errors)
     + [Overflow ve Underflow](#overflow-ve-underflow)
     + [Buffer Overflow, Stack Overflow ve Heap Overflow](#buffer-overflow-stack-overflow-ve-heap-overflow)
     + [Memory Leak](#memory-leak)
     + [Segmentation Fault](#segmentation-fault)
-      - [Valgrind Kullanımı (Memory Leak ve Segmentation Fault Tespiti)](#valgrind-kullanimi-memory-leak-ve-segmentation-fault-tespiti)
-- [C Toplulukları](#c-topluluklari)
-- [Yararlı Linkler](#yararli-linkler)
-- [İleri Okuma](#i%CC%87leri-okuma)
+      - [Valgrind Usage (Memory Leak and Segmentation Fault Detection)](#valgrind-usage-memory-leak-and-segmentation-fault-detection)
+- [Communities](#communities)
+- [Useful Links](#useful-links)
+- [Read More](#read-more)
 
 <!-- tocstop -->
 
-# C Dilinin Zorlukları ve Avantajları
-
-C dilini diğer dillerden ayıran şey ne? Neden düşük seviye dil olarak kabul ediliyor? Bu dilde yapmak için takla attığımız ancak yüksek seviyeli dillerde bir kaç satırda yaptığımız şeyler nedir?
-
-# C Dilini Diğer Dillerden Ayıran Temel Özellikleri Nelerdir?
+# Why C Language
 
 Bu dilde bellek yönetimini biz yapmak zorundayız, çoğu dilde bellek yönetimi otomatik olarak yapılır. Bunun yanında C dilinin nesne tabanlı programlama için uygun bir yapısı yok.
 
-# C Dili Hangi Alanlarda Kullanılıyor?
+# Where Is C Language Used?
 
 Gömülü sistemler, driver yazılımları ve işletim sistemlerinin çekirdekleri bu dil ile geliştiriliyor. Kişisel tahminim donanım programlarken objeye yönetik programlamaya ihtiyaç duyulmaması, bu sebeple dili değiştirecek bir eksiklik bulunmaması. Keza driver yazımı içinde aynı durum geçerli.
 
-# C Dili Standartları Nedir?
+# C Language Standarts
 
 C dili yaygınlaşmaya başlayınca ortaya bir problem çıktı, başkasının yazdığı kod diğer sistemler ile uyumsuz olabiliyordu, bu problemden ötürü taşınabilir programların yazılması zorlaşıyordu. Bu sebeple C diline bir standart getirmek gerekiyordu.
 
 Derleyici programları C Standartlarını sağlayacak şekilde yazılırlar. İnternet'te ufak bir aramayla kullandığımız derleyici programın sürümü hangi C standardını kullanıyor öğrenmek mümkün.
 
-## Standart Gelişimi
+## Evolution 
 
-C89: 1989 yılında [ANSI](http://ansi.org/) tarafından yapılmış.
+`C89`: 1989 yılında [ANSI](http://ansi.org/) tarafından yapılmış.
 
-C90: ISO tarafından duyurulmuş. Bir kaç teknik hata düzeltmesi dışında C90 ile C89 neredeyse aynı. ANSI resmi olarak bu standardı benimsemiş.
+`C90`: ISO tarafından duyurulmuş. Bir kaç teknik hata düzeltmesi dışında C90 ile C89 neredeyse aynı. ANSI resmi olarak bu standardı benimsemiş.
 
-C95: C90 üstüne bir kaç yeni özellik eklendi. Ağırlıklı olarak "digraphs" ve "wide character" özellikleri eklendi.
+`C95`: C90 üstüne bir kaç yeni özellik eklendi. Ağırlıklı olarak "digraphs" ve "wide character" özellikleri eklendi.
 
-C99: (ISO) tarafından duyuruldu, 3 farklı teknik hata düzeltmesi içeriyor. Bu sürümdeki en büyük fark önceki sürümlere göre `//` şeklinde yorum satırına izin veriyor oluşu, öncesinde sadece `/* */` şeklinde yorum yapabiliyorduk.
+`C99`: (ISO) tarafından duyuruldu, 3 farklı teknik hata düzeltmesi içeriyor. Bu sürümdeki en büyük fark önceki sürümlere göre `//` şeklinde yorum satırına izin veriyor oluşu, öncesinde sadece `/* */` şeklinde yorum yapabiliyorduk.
 
-C11: 2011 yılında ISO tarafından duyuruldu. Sadece bir teknik düzeltme içeriyor, "__STDC_VERSION__" ve "__STDC_LIB_EXT1__" tanımları değiştiriliyor.
+`C11`: 2011 yılında ISO tarafından duyuruldu. Sadece bir teknik düzeltme içeriyor, "__STDC_VERSION__" ve "__STDC_LIB_EXT1__" tanımları değiştiriliyor.
 
-Aslında C dilinin kullanıldığı alana göre bir çok standardı mevcut.
+## Other C Language Standarts
+
+Aslında C dilinin kullanıldığı sektöre göre bir çok standardı mevcut. Bu extra standartların genelde amacı dilin bazı özelliklerinden feragat edip daha güvenli bir dil yaratabilmek.
 
 ### Embedded C
 
@@ -151,11 +131,11 @@ Gömülü sistemler için kod yazarken kullandığımız standart.
 
 ### MISRA C
 
-Askeri, uçak ve otomotiv sanayinde kullanılan C standardı. Bu standart dinamik bellek yönetimini yasaklar.
+Askeri, uçak ve otomotiv sanayinde kullanılan C dili standardı. Bu standart dinamik bellek yönetimini yasaklar.
 
-## Derleyicim Hangi Standartı Kullanıyor?
+## Which Standard Does the Compiler Use?
 
-Kullandığımız derleyici varsayılan olarak hangi C Standardını kullanıyor öğrenmek için küçük bir test programı kullanabiliriz.
+Kullandığımız derleyici varsayılan olarak hangi C sili standardını kullanıyor öğrenmek için küçük bir test programı kullanabiliriz.
 
 ```c
 // test.c
@@ -220,21 +200,21 @@ __STDC_VERSION__ = 201710
 __STDC_VERSION__ = 201710
 ```
 
-Anlaşıldığı üzere varsayılan olarak gcc derleyicimiz gnu17 sürümünü kullanıyor.
+Anlaşıldığı üzere varsayılan olarak GCC derleyicimiz gnu17 sürümünü kullanıyor.
 
 # C vs C++
 
 TODO
 
-# Geliştirme Ortamı
+# Development Environment
 
 Malum, C derlenen bir dil, geliştirme ortamı için bir derleyici programına ihtiyaç duyuyoruz.
 
-## Derleyici
+## Compiler
 
 Popüler olan `gcc` yada `clang` derleyici programlarını kullanabiliriz.
 
-### Derleyici Nasıl Çalışır?
+### How Does the Compiler Work?
 
 - Ön işlem (preprocessing)
 - Derleme, Assembly Koduna Çevirme (compling)
@@ -245,11 +225,11 @@ Popüler olan `gcc` yada `clang` derleyici programlarını kullanabiliriz.
 
 Linklemenin yegane amacı derleme süresini kısaltmak. Derleyici program, eğer yazdığımız projede değiştirilmemiş bir dosya varsa (kütüphane dosyaları örn. stdio.h) bu dosyayı tekrar makine koduna yani 0 ve 1'lere çevirmek yerine önceden makine koduna çevirdiği dosyayı yedeklediği yerden çağırıp değiştirilmiş olan dosyanın makine kodları ile birleştiriyor. Bu sebeple linkleme işlemi en son adımda yapılır. Linkleme sayesinde derleyici hızlı çalışır.
 
-### Derleyici'ye Kütüphane Eklemek
+### Adding a Library to The Compiler
 
 TODO
 
-### Derleyici Direktifleri
+### Compiler Directives
 
 C ile alakası olmayan, daha kolay program yazmamızı sağlayan bir özellik.
 
@@ -269,11 +249,18 @@ C ile alakası olmayan, daha kolay program yazmamızı sağlayan bir özellik.
 #include "src/file.h"
 ```
 
-### GCC Kullanımı
+### GCC Usage
 
 GCC içinde bir compiler ve linker özelliği bulunduruyor. Compile etmek demek C kodumuzu object dosyasına çevirmek demek yani derleme sonrası elimizde .o uzantılı bir dosya olması demek. Link demek ise object dosyamızı executable yani çalışabilir bir program haline getirmek demek. GCC programı ile kullandığımız Flag'ler ile object dosyası yada linklenmiş bir dosya çıktısı alabiliyoruz.
 
-#### COMPILING AND LINKING
+#### General Purpose
+
+```bash
+# yazdığımız program abc olarak çıktı verir, diğer türlü işletim sistemimize göre .exe yada .out gibi çıktılar verir derleyiciler
+-o abc
+```
+
+#### Compiling and Linking
 
 ```bash
 # Tek satırda programı compile ve link etmek, yani çalıştırılabilir program elde etmek
@@ -292,7 +279,7 @@ gcc foo1.o foo2.o foo3.o -o bar
 ./bar
 ```
 
-#### ASSEMBLY
+#### Assembly
 
 ```bash
 # C kodunu assembly olarak çıktı verir
@@ -308,7 +295,7 @@ gcc file.S -o foo
 gcc -save-temps -o test test.c
 ```
 
-#### C STANDART SELECTION
+#### Compiler C Language Standart Selection
 
 ```bash
 # First Offical C Standart
@@ -337,7 +324,7 @@ gcc -save-temps -o test test.c
 -pedantic-errors
 ```
 
-#### STATIC LIBRARY USAGE
+#### Static Library Usage
 
 C Statik kütüphaneleri Unix Sistemlerinde "/lib" ve "/usr/lib" altında tutulur.
 
@@ -354,7 +341,7 @@ Yoksa eğer belirttiğimiz hedef dosya kullanılır.
 gcc -o  sample sample.c -L . -l test
 ```
 
-#### DYNAMIC LIBRARY USAGE
+#### Dynamic Library Usage
 
 ```bash
 # /lib veya /usr/lib konumundaki dinamik bir dosyayı kullan
@@ -364,14 +351,7 @@ gcc sample.c -o sample libtest.so
 gcc -o sample sample -L . -l mylib
 ```
 
-#### Genel Amaçlı
-
-```bash
-# yazdığımız program abc olarak çıktı verir, diğer türlü işletim sistemimize göre .exe yada .out gibi çıktılar verir derleyiciler
--o abc
-```
-
-### Make Programı ve Makefile Dosyası
+### Make and Makefile
 
 Make programı bir GNU Build Aracıdır. Programın özündeki amacı geliştiricinin daha kolay derleme yapmasını sağlamak. Make programı ile projemizde sadece değişen kısımlar derlenir ve içeriği değiştirilmemiş, tekrar derlenmesine gerek olmayan dosyalar aynı bırakılır, bu şekilde geliştiriciye zaman kazandırılır.
 
@@ -382,7 +362,7 @@ Make programı bir GNU Build Aracıdır. Programın özündeki amacı geliştiri
 - Make programına hiçbir parametre vermeden sadece make diyerek çağırdığımızda makefile içindeki tanımladığımız ilk kuralı çalıştırır.
 - Makefile dosyası içinde değişken kullanabiliriz.
 
-#### Örnek Bir Makefile Dosyası
+#### Makefile Sample
 
 ```
 CC     = gcc
@@ -404,13 +384,13 @@ install: ornek
     cp ornek /usr/local/bin
 ```
 
-#### Kural Adına Sahip Dosya Kullanabilmek
+#### Using a File with Rule Name
 
 Örneğin klasörde clean adlı bir dosya var; Bu durumda `make clean` çalıştırdığımızda clean adlı bir kural yazmış olsak bile yazdığımız kural çalışmaz. Çözümü basit; Aşağıdaki gibi yeni bir kural oluşturup dosya ile kural arasındaki farkı belirtmemiz gerekiyor.
 
 `.PHONY: clean`
 
-### Optimizasyon Nedir?
+### What is Optimization?
 
 Derleyiciler kodumuzun daha hızlı çalışması ve bellekte daha az yer kaplaması için otomatik optimize eder.
 
@@ -426,43 +406,29 @@ Optimizasyon temelli sorunlardan kurtulmak için kodu tamamen optimizasyona kapa
 
 Sorunu aşmak için `volatile` deyimi kullanmak gerekiyor. Daha farklı çözümler de mevcut, ancak `best practice` bu deyimi kullanmak.
 
-## Güzel Kod Yazmak (Clean Code)
-
-Yazdığımız program hangi dilde olursa olsun diğer insanların kolayca anlayabileceği bir şekilde yazılması gerekiyor. Eğer kodun güzel görünmesine dikkat etmezsek ileride kodumuzu güncellemek istediğimizde yazdığımız kodu anlamakta güçlük çekeriz. Projeye dahil olan diğer insanlar yazdığımız kodu estetik hatalar yüzünden zor anlayabilir veya anlamayabilirler.
-
-Yazdığımız kodun hatalarını bulmak için CS50 dersinde kullandığımız `style50` programını kullanabiliriz. Bu program kodumuzu `PEP8` standardına göre inceliyor ve satır satır stil tavsiyesi veriyor.
-
-### Güzel Kod Yazmanın Bazı Kuralları
-
-- Satır sayısı maksimum 80 karakter olmalı.
-- Fonksiyonlar sadece bir iş yapmalı ve en fazla 24x2 satır sürmeli.
-- Oluşturulmuş her fonksiyon yorum ile süslenmeli.
-- Programımızın en başında `Header Comment` olmalı.
-- TAB yerine 4 boşluk tuşunu kullanmalıyız. Bunun sebebi projemizle ilgilenen geliştirici kişilerin vs. editör ayarlarında TAB tuşuna farklı bir boşluk miktarı tanımlanmış olabilir ve yazdığımız kod başka editörlerde okunamaz boyutta kötü gösteriyor olabilir.
-- `Macar Notasyonu` kullanılmamalı, C dilinde değişkenlerin tipleri zaten belirtiliyor.
-- İç içe girinti en fazla 3 seviye olmalı.
-
-ANSI konsol ekranı 80x24 satır oluyor. Listedeki ilk iki kural buradan geliyor.
-
 ## Debugger
 
 Karşımıza çıkan hataları bulmanın en kolay yolu genelde programımıza `printf` satırları eklemek ve değerleri takip etmektir. Kompleks programlarda `printf` kullanımı ve hata tespiti zorlaşıyor, bu nedenle `debugger` adlı programlara ihtiyaç duyuyoruz.
 
 C dili için `gdb` adlı programı kullanabiliriz.
 
-### GDB Nasıl Kullanılır?
+### GDB Usage
 
 TODO
 
-## Text Editörü: Sublime Text 3
+## Text Editor: Sublime Text 3
 
 Ben kod geliştirirken `Sublime Text 3` editörünü kullanıyorum çünkü bu editör eklentiler ile kişiselleştirilebiliyor, hafif bir `IDE` haline getirilebiliyor. Başlık altında C dili için `Sublime Text 3` editörü nasıl ayarlanır, hangi eklentiler yüklenir gibi sorulara cevap veriyor olacağım.
 
-### Tab Tuşlarını Space Tuşlarına Çevirmek
+### Settings
+
+TODO
+
+#### Converting Tabs Characters to Space
 
 > Preferences > Settings > "translate_tabs_to_spaces": true
 
-### Kolon Sayısını 80 ile Sınırlamak
+#### Limiting Column Size
 
 > View > Word Wrap Column > 80
 > View > Word Wrap
@@ -471,39 +437,47 @@ Veya bunun yerine Ruller özelliği kullanılabilir.
 
 > View > Ruler > 80
 
-### Eklenti: SublimeLinter ve SublimeLinter-gcc
+### Plugins
 
-SublimeLinter eklentisi ile C ve C++ dilinde yazılmış kodları `flake8` ve `pep257` standartları kullanarak yazıyoruz.
+Daha okunabilir ve hızlı bir şekilde C kodu yazabilmek için edinebileceğimiz eklentiler.
 
-# Main ile Yazdığımız Programdan Değer Döndürmek
+#### SublimeLinter and SublimeLinter-gcc
+
+SublimeLinter eklentisi ile C ve C++ dilinde yazılmış kodları `flake8` ve `pep257` standartları kullanarak yazıyoruz. Bu işi yapabilmek için SublimeLinter için yazılmış olan `SublimeLinter-gcc` adlı eklentisiyi ekstra olarak kurmamız gerekiyor.
+
+#### EditorConfig
+
+Bu eklenti C dilinden bağımsız. C projemize `.editorconfig` dosyası ekleyip editörün tab yerine space kullanması, kolon limiti gibi değerleri bir dosya ile diğer editörlere diretebiliyoruz. Takım çalışması yaparken kullanılabilir.
+
+# Returns Value from Main Function
 
 Main fonksiyonu boşuna integer bir değer döndürmüyor, integer değer döndürmesinde ki amaç programın hata veya başarılı bir şekilde sonlanıp sonlanmadığını anlayabilmek.
 
 Main içinde eğer bir return kullanmazsak derleyici otomatik olarak `return 0` deyimini kullanıyor biz görmesek de, eğer biz bir return değeri koyup değer döndürürsek program biter. Döndürdüğümüz main değerine `echo $?` komutu ile komut satırından görebiliriz. Yani kısacası ileride gelişmiş programlar yazarken ana programımızdan bir kod döndürüp ikincil vs. bir program ile bu kodu okutmamız mümkün hale geliyor.
 
-# C Dili Özellikleri
+# C Language Features
 
 TODO
 
-## Dizi Tanımlama
+## Array Definitions
 
 ```c
-// Burada foo 3 elemanlı, 4 elemanlı değil, elemanları 0, 1 ve 2.
+// Burada foo değişkeni 3 + 1 elemanlı, 0, 1, 2 veri girişi için ayrılmış, 3. hücrede \0 karakterini barındırıyor.
 int foo[3];
 
-//Basit bir dizi tanımı.
+// Basit bir dizi tanımı.
 int foo[] = {5, 4, 2};
 ```
 
-## Dizi ve Ram Bellek İlişkisi
+## Array-Memory Relation
 
-Dizinin en sonuna bir byte `00000000` veya `\0` şeklinde bitiş byte'ı yerleştiriliyor. Bu bilgiye dayanarak algoritmalar geliştirmek mümkün, ders içinde `strlen()` fonksiyonu bu özellik kullanılarak basit bir şekilde yazılmıştı.
+Dizinin en sonuna bir byte `00000000` veya `\0` şeklinde bir bitiş byte'ı yerleştiriliyor. Bu bilgiye dayanarak algoritmalar geliştirmek mümkün, ders içinde `strlen()` fonksiyonu bu özellik kullanılarak basit bir şekilde yazılmıştı.
 
 Dizi oluştururken `int foo[3]` demek aslında 4 elemanlı, son elemanı `\0` olan bir değişken yarat demek.
 
 ## Null, False, 0, 0x0
 
-Aslında bu 3 deyimde aynı anlama geliyor.
+Bu 4 ifade aynı anlama geliyor.
 
 ```c
 // Eğer s null vs. ise if çalışır, bu şekilde daha iyi kod yazmış oluruz.
@@ -512,22 +486,22 @@ if (!S) {
 }
 ```
 
-## Veri Tipleri
+## Data Types
 
 Veri tiplerini iki ayrı başlıkta incelemek mümkün; 
 
 - Temel veri tipleri
 - Özel veri tipleri.
 
-### Genel Veri Tipleri
+### General Data Types
 
 TODO
 
-### Özel Veri Tipleri
+### Custom Data Types
 
 TODO
 
-## Konsoldan Argüman Almak
+## Getting Arguments from Console
 
 `argc` = argument count
 `argv` = argument vector
@@ -541,7 +515,7 @@ int main(int argc, char *argv[])
 
 Eğer programımızı `.\test` şeklinde çalıştırılırsa; `argv[0]` değeri `.\test` değerini taşır.
 
-## Prototype Yapısı
+## Prototype
 
 Programımız içinde kullandığımız fonksiyonlar her zaman main fonksiyonunun üstünde tanımlanmak zorunda. Eğer aşağıda tanımlama yaparsak derleyici bu tanımlamayı görmüyor ve fonksiyonu bulamadım diyor. Main fonksiyonunu üstte tutmak için `Prototype` özelliğini kullanmamız gerekiyor.
 
@@ -586,7 +560,7 @@ int main()
 }
 ```
 
-## Custom Data Types: Typedef ve Struct
+## Custom Data Types: Typedef and Struct
 
 C dili özünde nesne tabanlı programlamayı desteklemiyor, `struct` yapısı ile takla atarak nesne tabanlı programlamaya elverişli hale getirebiliyoruz. Nesne tabanlı programlamayı örnekleyecek olursak, yüz tane öğrencinin bilgisini alacak olalım, normalde öğrencilerin bilgilerini değişik diziler içinde toplamamız gerekir, programın tasarımını kötüleştiren bir detay bu.
 
@@ -658,11 +632,11 @@ mycar.odometer = 50505;
 
 ```
 
-## Bitwise Operatörler
+## Bitwise Operators
 
 Bu özellik genelde mikro denetleyici programlarken kullanılıyor. Mikro denetleyicilerin `Register`'larını programlarken işi yarar bir özellik kendisi. Yüksek seviyeli dillerde de bu özellik mevcut olabilir, örneğin Python dilinde de bu özellik var ancak bu özelliğin en işe yarar olduğu dile C dilidir. Bunun sebebi mikro denetleyici programlarken C dilinin tercih edilmesidir.
 
-## Pointer
+## Pointers
 
 Pointer değişkenler bellek adresi tutarlar.
 Bu sebepler Pointer'a bir değer atarken sadece bellek adresi atabiliriz.
@@ -715,7 +689,7 @@ int main(void)
 }
 ```
 
-### Birbirini İşaret Eden Pointer Yapısı ve Yıldız Yapısı
+### Pointing A Pointer To Another Pointer And Pointer Star Definition
 
 Eğer bir değişkenin adresini göstermek istiyorsak bir yıldız. Bir Pointer'ın adresini göstermek istiyorsak iki yıldız, bir Pointer'ın Pointer'ını göstermek istiyorsak üç yıldız.. şeklinde gidiyor.
 
@@ -794,7 +768,7 @@ printf("%d\n", a[3]); // yukaridaki printf bu hale donustu.
 // Output : -4
 ```
 
-## String Veri Yapısı
+## String Data Type
 
 String veri tipi için char pointer'ı kullanılıyor.
 
@@ -805,7 +779,7 @@ printf("first character is %c\n", s[0]); // returns H
 printf("%s\n", s); // returns Hello World!
 ```
 
-## Başlık Dosyası (Header File)
+## Header File
 
 Başlık dosyası yazdığımız programın teknik dokümanını içeriyor. Başlık dosyası sayesinde yazdığımız bir kütüphanenin fonksiyonlarını `Prototype` özelliği ile diğer programların kullanımına açabiliyoruz. 
 
@@ -843,7 +817,7 @@ static const uint_8 = 50;
 volatile const foo uint_8 = 50
 ```
 
-## Taşınabilir, Güvenli Değişken Kullanımı
+## Portable, Secure Variable Usage
 
 Değişkenlerin bellekte kapladığı alan çalıştığı sisteme göre değişebiliyor. Örnek olarak 64 bit sistemlerde integer bir değişken 8 byte yer kaplarken 32 bit bir sistemde integer bir değişken 4 byte yer kaplar. Aynı durum gömülü sistemler içinde geçerli, yazdığımız bir algoritmanın diğer mikro denetleyiciler ile uyumlu olmasını istiyorsak bu duruma dikkat etmemiz gerekiyor.
 
@@ -858,7 +832,7 @@ C dilinde `stdint.h` başlık dosyasını kullanarak bellekte kapladığı alan 
 uint32_t max = 2050;
 ```
 
-# Dinamik Bellek Yönetimi
+# Dynamic Memory Usage
 
 Dinamik bellek yönetimi nedir? Programı kullanan kişinin sürekli veri girdiğini varsayalım, bu verileri bir değişken üstünde depolamak isteyelim. C dilinde değişkenin bellekteki alanını Python gibi yüksek seviyeli dillerde olduğu gibi kolayca büyütemiyoruz, bu konuda dil soyutlanmamış. Python gibi bir dilde mesela bir dizinin içine bir veri `append` edebilirken C dilinde bu mümkün değil.
 
@@ -934,7 +908,7 @@ int main(void)
 }
 ```
 
-Peki `Realloc` fonksiyon nasıl çalışıyor? Bilgisayar açtığımız dizinin sonunda istediğimiz miktarda byte varsa veriyor bize, yoksa bile `Realloc` dizimizde bulunan tüm veriyi bellekte bulunan daha geniş bir yere re `locate` ediyor yani yeni ve daha uzun bir adres bulup oraya kopyalıyor ve verilerimizi o adresten artık okumaya devam ediyoruz. Bu yüzden `Realloc` iyi bir kullanım şekli değil. Çünkü eldeki veri büyüdükçe işlem süresi lineer büyür. Veri sayısı ne kadar büyürse veriyi genişletmek için bir o kadar zaman harcaması gerekiyor algoritmanın.
+Peki `Realloc` fonksiyon nasıl çalışıyor? Bilgisayar açtığımız dizinin sonunda istediğimiz miktarda byte varsa veriyor bize, yoksa bile `Realloc` dizimizde bulunan tüm veriyi bellekte bulunan daha geniş bir yere `relocate` ediyor yani yeni ve daha uzun bir adres bulup oraya kopyalıyor ve verilerimizi o adresten artık okumaya devam ediyoruz. Bu yüzden `Realloc` iyi bir kullanım şekli değil. Çünkü eldeki veri büyüdükçe işlem süresi lineer büyür. Veri sayısı ne kadar büyürse veriyi genişletmek için bir o kadar zaman harcaması gerekiyor algoritmanın.
 
 Dinamik bellek yönetimini çok daha hızlı yapan algoritmalar var. Bu algoritmalar `Dinamik Bellek Algoritmaları` başlığı altında anlatıldı.
 
@@ -942,187 +916,7 @@ Dinamik bellek yönetimini çok daha hızlı yapan algoritmalar var. Bu algoritm
 
 Sistemden dinamik olarak aldığımız belleği geri vermemiz gerekiyor çünkü C dili derlenen bir dil olduğu için `Garbage Collection` özelliği bulunmuyor. Eğer aldığımız belleği geri vermezsek zamanla programımızın büyüklüğüne göre sistemin belleği dolmaya başlar ve zamanla bilgisayarda kasılmalar ve donmalar meydana gelir. Bazı zamanlar bilgisayarı günlerce açık tutabiliyoruz, bu gibi durumlarda programımız aldığı belleği hiç geri vermediği için bellekte aslında kullanılmayan ama programımız tarafından ayrılmış atıl yerler kalacaktır. Bu probleme literatürde `Memory Leak` adı veriliyor.
 
-# Algoritmalar
-
-C dili yazılmış algoritmalar ve mantıkları. Bunun yanında bahsi geçen algoritmaların kullanım alanları, maliyetleri ve hızları bu başlık altında inceleniyor.
-
-## Sıralama Algoritmaları
-
-Bir çok sıralama algoritması var, bu algoritmaların hızlarını matematiksel olarak belirtebiliriz. 
-
-Algoritmanın matematiksel olarak en yavaş hız formülü yazılım jargonunda `O` harfi ile gösteriliyor, en hızlı ise `Omega` (Ω) işareti ile gösteriliyor. Örneğin 5 adet veriyi `Bubble Sort`  algoritması ile sıralarken maksimum O(25) adımda, minimum Ω(5) adımda bitiriyoruz.
-
-Burada listelenen algoritmalar dışında bir çok sıralama algoritması mevcut. Burada bir çok algoritma sıralanmasının nedeni farkları ve algoritma mantığını kavramak için. Örneğin buradaki en hızlı sıralama algoritması `merge`. Mantıklı düşünüldüğünde `bubble` veya `selection` algoritmalarını kullanmaya gerek kalmıyor.
-
-### Selection Sort
-
-O(n²)
-Ω(n²)
-
-Bu algoritmada dizideki tüm değerlere bakıp en küçük değeri başa koyuyoruz ve en küçük değeri sıraladığımız için bir daha en küçük değere dokunmuyoruz, bir ileri adım atıyoruz ve sıradaki en küçük değeri bulup aynı şekilde sıralama yapıyoruz. Mantığı basit bir algoritma ama matematiksel formülüne baktığımızda yavaş olduğu anlaşılıyor.
-
-### Bubble Sort
-
-O(n²)
-Ω(n)
-
-Küçükten büyüğe doğru sıralama yapmak için ilk adım olarak dizinin ilk elemanını en küçük değer olarak kabul edip listedeki diğer elemanlar ile karşılaştırıyoruz, eğer karşılaştırdığımız eleman daha küçük ise listede bu iki elemanın yerini birbiriyle değiştiriyoruz.
-
-### Merge Sort
-
-O(nlogn)
-Ω(nlogn)
-
-Listede en hızlı sıralama algoritması bu. Sıralamak istediğimiz veri kümesini parçalara bölüp her parçayı kendi içinde sıralıyoruz, sonrasında her iki parçayı tek parça olarak şekilde sıralayarak oluşturuyoruz ve bu işlem tüm sıralama işlemi bitene kadar devam ediyor.
-
-## Dinamik Bellek Algoritmaları
-
-C dili ile gelen dinamik bellek yönetimi sorunu için türetilmiş algoritmalar ve bunların karşılaştırılması. 
-
-Dinamik bellek algoritmasına neden ihtiyacımız olduğunu anlamak için C dilinde çoklu veri depolamanın yollarının atası olan dizi yapısını incelemek gerekiyor.
-
-Dizi;
-
-Eleman eklemek ve silmek için lineer bir zaman harcıyoruz. 
-
-Dezavantajlar: 
-
-- Dizinin sonuna eleman eklemek basit bir iş ancak sıralanmış bir dizi kullanıyorsak ve orta kısma koymamız gereken bir veri varsa bu işi yapamıyoruz.
-- Bellekte kapladığı alan büyümüyor, esnekliği az. Bu yüzden ekstra bir veri girmek istediğimizde bize gereken kadar büyüklükte yeni bir dizi açıp eski diziyi yeni diziye tek tek kopyalanır ve yeni veriyi de üstüne kaydederiz.
-
-Avantajlar: 
-
-- Bellekte diğer yöntemlere göre daha az yer kaplıyor.
-- Kullanması kolay.
-- Rastgele bir veriye erişmesi hızlı ve kolay.
-
-### Linked List
-
-Verilere geri dönemeden erişmeye `Singly Linked List` deniliyor. Ekstra olarak geri gidebilmek istiyorsak yazacağımız algoritmaya `Doubly Linked List` deniyor.
-
-Dezavantajlar:
-
-- Rastgele bir veriye erişmek zaman alıyor. Veriyi lineer olarak arıyoruz.
-- Verileri sıralamak zor.
-
-Avantajlar:
-
-- Dinamik olarak veri eklemek ve silmek kolay.
-- Bellekte diziler kadar olmasa da az yer kaplıyor.
-
-#### Singly-Linked List
-
-Anlatması zor bir yöntem. Bellekte bir değer depoladıktan sonra bu değerin hemen yanına bir sonraki değerin bellek adresini depoluyoruz, bu işlem her yeni değer kaydı için geçerli. Sadece bir adımda bir yerine 2 veri kullanarak C dilinin bu sınırlamasını aşabiliyoruz.
-
-Linklemeyi uygulamanın basit bir yolu var, yöntem aşağıda anlatılıyor.
-
-Bu kodda 2 tane "node" kullanılmış, C dilinde kodlar her zaman yukarıdan aşağıya doğru okunur, biz yukarıya node tanımlaması yaptığımız zaman `struct ` içinde node'u kullanabilir hale geliyoruz.
-
-Bana bir integer ve bir pointer ver diyoruz bu veri tipinde.
-
-```c
-// Example of Singly-Linked List Algorithm
-
-#include <cs50.h>
-#include <stdio.h>
-
-typdef struct node
-{
-    int number;
-    struct node *next;
-}
-node;
-
-int main(void)
-{
-    node *numbers = NULL;
-
-    // prompt for number (until EOF)
-    while (true)
-    {
-        // propmt for number
-        int number = get_int("Number: ");
-
-        // check for EOF
-        if (number == INT_MAX)
-        {
-            break;
-        }
-
-        // allocate space for numbers
-        node *n = malloc(sizeof(node));
-        if (!n)
-        {
-            return 1;
-        }
-
-        // add number to list
-        n->number = number; // (*n).number = numver;, * means go to pointed adress
-        n->next = NULL;
-        if (numbers)
-        {
-            for (note *ptr = numbers; ptr != NULL; ptr = ptr->next)
-            {
-                if (!ptr->next)
-                {
-                    ptr->next = n;
-                    break;
-                }
-            }
-        }
-        else
-        {
-            numbers = n;
-        }
-    }
-}
-```
-
-Oluşturduğumuz algoritmayı daha hızlı yapmak için `Link Listing` ile diziyi birleştirebiliriz. Buna `Hash Table` deniyor.
-
-#### Doubly-Linked List
-
-TODO
-
-### Hash Table
-
-Bu yapıda aslında parçalanmış şekilde diziler içinde `Linked List`'ler kullanıyoruz. Bir veri aramak `Linked List`'e göre daha kolay çünkü alakasız bazı verileri eleyerek istediğimiz veriyi bulabiliyoruz. `Linked List'`e göre bellekte daha fazla yer kaplıyor ancak `Tries` algoritmasına göre daha az yer kaplıyor.
-
-Bu yapı temel olarak dizi ile `Linked List`'in birleşimi.
-Sıralama işlemi yapmak istediğimizde bu yapının bize kazandırdığı tüm avantajları kaybediyoruz, sıralama yapmak istediğimiz bir programımız varsa bu yapının kullanılması tavsiye edilmiyor. 
-
-Bu algoritma için bize pozitif `hash code` üreten bir `hash function`'a ihtiyacımız var. İkinci olarak bize bir dizi gerekiyor. Elimizdeki veriyi `hash function`'a veriyoruz, `hash funstion` bir `hash code` üretiyor ve bu kodu bir arrayde depoluyoruz.
-
-Örnek olarak isim kaydetmek isteyebiliriz. `Hash Table` algoritmasını kullanmak için 26 elemanlı bir dizi açalım, `hash function` oluşturalım ve bu fonksiyon bize A ile başlayan bir isim girildiğinde "0", Z ile başlayan bir isim girildiğinde "26" döndürsün. A ile başlayan tüm isimleri dizinin 0. adresini kullanarak `Linked List` algoritması ile depolayalım. A ile başlayan başka bir isim verisi geldiğinde `Linked List` ile gerekli adrese kayıt etmeye devam edeceğiz.
-
-Bu şekilde ileride bu kişiyi aradığımızda `Linked List` algoritmasıyla karşılaştırdığımız, teoride 26 kat daha hızlı bulabiliriz.
-
-`Linked List`'lerin dezavantajı rastgele olarak bir veriye erişme zorluluğu. `Linked List`'de n zamanda bir veriye erişirken bu algoritmada (n / Linked List sayısı). Ne kadar çok `Linked List`'imiz varsa ki bu array'in boyuna eşit, o kadar hızlı arama yapmamız mümkün.
-
-### Trie
-
-Rastgele bir veriye erişmek hızlı. Verileri sıralanmış bir şekilde kaydediyoruz. Elimizde az bir veri olsa bile bellekte çok yer kaplıyor. Aldığımız bellek ile elimizde sıralanmış bir veri elde ediyoruz.
-
-## Buffer Algoritmaları
-
-Verilerin tampon bellekte saklanma yöntemleri, kullanım alanları, bunların avantaj ve dezavantajları.
-
-### Ring Buffer
-
-Örnek bir kullanım amacı; İki taraflı bir iletişimde iletişim hızı farklı ise eksiksiz bir iletişim için gelen mesajın bir yerde saklanması ve bekletilmesi gerekebiliyor. Eğer gelen mesajları saklamasak ikinci bir seçenek aynı anda sadece bir defa mesaj okumak olurdu ve bu şekilde karşı taraftan bazı mesajları kaçırmış olurduk.
-
-Karşı taraf bizim işlem gücümüzden daha hızlı bir şekilde mesaj gönderiyorsa aradaki mesajları kaçırmamız normal bir durum. 
-
-Kısaca gelen mesajların biriktirilmesi ve tane tane okunmasını sağlıyor bu algoritma.
-
-Bu algoritma daha çok gömülü sistemlerde iletişim amaçlı kullanılabilir diye düşünüyorum. Her ne kadar mikro denetleyicilerde kesme özelliği olasa da bazı senaryolarda kesme donanımına erişimimiz olmayabilir yada gelen verileri depolamak ve ardından işlemek daha ucuz bir çözüm olabilir.
-
-- Dinamik bellek kullanmadan sabit bir bellek içinde veriler depolanıyor.
-- Bu algoritma ile `FIFO` (first in first out) yöntemi kullanılıyor. Biriktirilen verilerin önce en eskisi okunur.
-- Buffer dolduğu zaman gelen yeni veriyi ya ilk hücreye yazıyoruz yada karşı sisteme alan kalmadığını bildiriyoruz.
-- Dinamik bellek yönetimi yapmadığımız için nispeten uygulaması kolay bir algoritma.
-
-# Olası Algoritmik Hatalar
+# Some Algorithm Errors
 
 Programda `runtime` durumunda çıkabilecek, çıkması çok müsait, bazı yaygın algoritmik hataların nedenleri ve çözümleri.
 
@@ -1164,7 +958,7 @@ Burada Int göndermek yerine Int'in Pointer'larını yani adres göstericilerini
 
 `*` işareti `dereferance` operatörü oluyor ve her zaman adres belirtiyor. & işareti değişkenin ilk byte'ı belleğin hangi adresinde onu gösteriyor. String'de zaten adres kaydedildiği için & işaretine gerek yok.
 
-# Bazı Kütüphaneler
+# Useful Libraries
 
 Yaygın kullanılan bazı kütüphaneler ve yetenekleri.
 
@@ -1177,14 +971,15 @@ Bunun için `string.h` adında bir başlık dosyası çağırıyoruz. Bu dosya i
 // değikenin uzunluğu, örn. ali -> 3
 int len = strlen(s);
 
-// string karşılaştırmanın kolay yolu, aynı zamanda negatif yada pozitif integer döndürerek alfabetik olarak hangisi daha önde return edilen değerden anlamamız mümkün.
+// string karşılaştırmanın kolay yolu, aynı zamanda negatif yada pozitif integer döndürerek
+// alfabetik olarak hangisi daha önde return edilen değerden anlamamız mümkün.
 // 0 döndürüyorsa isimler aynı, else ise farklı.
 strcmp(a, b);
 ```
 
 ## Ctype
 
-String değerler ile çalışmak için bu fonksiyonları döngüler ile kullanmak gerekiyor.
+Bu kütüphaneyi kullanmak için `ctype.h` dosyasını projemize `include` ediyoruz.
 
 ```c
 // karakter büyük harf olarak döndürülür.
@@ -1207,15 +1002,15 @@ int value = isdigit(c);
 
 TODO
 
-# Dosya İşlemleri
+# File Operations
 
 TODO
 
-# Statik ve Dinamik Kütüphaneler
+# Static and Dynamic Libraries
 
 C dilinde kütüphane yapısı.
 
-## Statik Kütüphaneler
+## Static Library
 
 Eskiden bilgisayarların işlemci gücü düşüktü bu yüzden işlemcinin gücünü tasarruflu harcamak önemliydi. Bu sebeple önceden derlenmiş ve obje koduna çevrilmiş kütüphaneler kullanılıyordu. Bu şekilde projemizi her derleme işleminden geçirdiğimizde; Kullandığımız kütüphaneler tekrar tekrar derleme işleminden geçmediği için hızlı bir derleme işlemi oluyordu.
 
@@ -1225,7 +1020,7 @@ Bilgisayarların işlemci gücü artık yüksek olduğu için kullanılmıyor st
 - İşlemci gücü arttığı için artık bu yöntem tercih edilmiyor olsa bile programımızın kaynak kodunu saklamak için için tercih edilebilir.
 - Unix sistemlerde statik kütüphanelerin ön eki lib ile başlar.
 
-### Statik Kütüphane Yaratmak
+### Creating a Static Library
 
 Windows için bu işi yapan programın adı `lib.exe`, Unix sistemler için `ar`
 
@@ -1235,7 +1030,7 @@ Aşağıdaki örnekte Calculator.o adlı derlenmiş dosyamızı kullanarak libca
 ar cr libcalculator.a Calculator.o
 ```
 
-## Dinamik (Paylaşımlı) Kütüphaneler
+## Dynamic (Shared) Libraries
 
 - Bu dosyaların uzantısı Unix sistemler için `.so` (shared object), Windows için `.dll` oluyor.
 - Bu kütüphaneler bizim programımız derlenirken programın içine linklenmezler bu sebeple programımız boyut olarak büyümez. 
@@ -1243,7 +1038,7 @@ ar cr libcalculator.a Calculator.o
 
 Dinamik bir kütüphaneden tek bir fonksiyon çağırsak bile tüm dinamik kütüphane, hatta dinamik kütüphaneye bağlı diğer dinamik kütüphanelerin tamamı bellekte yer kaplar.
 
-### Dinamik Kütüphane Oluşturmak
+### Creating a Dynamic Library
 
 Aşağıdaki örnekte calculator.c adlı dosyamızı vererek libcalculator.so adlı dinamik bir kütüphane elde ettik.
 
@@ -1251,7 +1046,7 @@ Aşağıdaki örnekte calculator.c adlı dosyamızı vererek libcalculator.so ad
 gcc -o libcalculator.so -fPIC -shared calculator.c
 ```
 
-# Bazı Teknik Terimler
+# Some Terms
 
 Bilinmesi gereken, temel bazı programcılık terimleri.
 
@@ -1308,26 +1103,7 @@ C#, Python ve Java gibi C diline göre yüksek seviyeli dillerde `Garbage Collec
 
 Bellek üstünde bilgiler rastgele olarak depolanmıyor, belleğin altı, üstü ve ortası belleğin daha performanslı çalışması için işletim sistemi tarafından bazı grup program ve dosyalar için ayrılıyor. Örneğin belleğin en üstüne yani `heap` bölgesine işletim sistemi açılır, aynı zamanda değişkenler işletim sisteminin hemen altında bir bölgeye kaydedilir. Belleğin en alt bölgesine yani `stack` içinde programlardaki fonksiyonlar kaydedilir. 
 
-## Asymptotic Analysis
-
-Bir algoritmanın çalışma performansını ölçmek için kullanılan bir yöntem. Algoritmanın çalışma süresinin alt ve üst sınırını bulmamızı sağlayan algoritma analizi metodu.
-
-### Big-0 Notation
-
-Bir algoritmanın girilen n sayıdaki input ile çalışma süresini gösterme biçimi.
-
-Algoritmaların `Big-O Notation` performansları hakkında bir `cheat sheet`:
-http://bigocheatsheet.com/
-
-### Omega Notation
-
-Bir algoritmanın girilen n sayıdaki input ile çalışma süresini alt limiti verir. Yani algoritmanın en kötü pozisyonda n kadar veriyi ne kadar sürede işler bunun cevabını verir. 
-
-### Teta Notation
-
-`Big-O Notation` ile `Omega Notation`'ın ortalaması alınca `Teta Notation` çıkıyor. Bunun sonucu daha gerçekçi çünkü hem üst hem alt limiti bulup ortak bir değer belirliyoruz.
-
-## Hatalar
+## Program Errors
 
 C ile program geliştirirken karşımıza çıkabilecek bazı hatalar.
 
@@ -1353,7 +1129,7 @@ Dinamik olarak `memory allocate` ederken eğer çok uzun bir yazı yazacak olurs
 
 Bilgisayar güvenlik amaçlı biz bellekte bir yer istediğimiz zaman bir kaç boşluk ile verir ki bunun gibi hatalarla karşılaşmayalım diye.
 
-####  Valgrind Kullanımı (Memory Leak ve Segmentation Fault Tespiti)
+####  Valgrind Usage (Memory Leak and Segmentation Fault Detection)
 
 Bunun için `valgrind` adında bir konsol programı var. 
 
@@ -1369,31 +1145,24 @@ Kısaca `valgrind` aracına derlenmiş programımızı çalıştırabilecek şek
 help50 valgrind ./name_of_program
 ```
 
-# C Toplulukları
+# Communities
 
 TODO
 
-# Yararlı Linkler
+# Useful Links
 
-Harvard CS50 Dersi, Programlama Temelleri ve C Dili Yapısı Hakkında Zengin Bir Kurs.
-https://courses.edx.org/courses/course-v1:HarvardX+CS50+X/course/
+[Harvard CS50 Class](https://courses.edx.org/courses/course-v1:HarvardX+CS50+X/course/)
 
-Ağırlıklı Olarak Gömülü Sistemler Hakkında Bilgi Sunan Bir Blog Sitesi.
-https://coskuntasdemir.net/
+[Çoşkun Taşdemir](https://coskuntasdemir.net/)
 
-İleri C Programlama ve Gömülü Sistemler Hakkında Bir Hazine.
-http://ozenozkaya.com/blog/
+[Ozen Ozkaya](http://ozenozkaya.com/blog/)
 
-C Programlama ve Gömülü Sistemler Hakkında Başka Bir Hazine.
-http://www.lojikprob.com/
+[Lojik Prob](http://www.lojikprob.com/)
 
-# İleri Okuma
+# Read More
 
-Make
-https://demirten.gitbooks.io/gomulu-linux/gnubuild/make.html
+[Make](https://demirten.gitbooks.io/gomulu-linux/gnubuild/make.html)
 
-Different C Standards: The Story of C
-https://opensourceforu.com/2017/04/different-c-standards-story-c/
+[Different C Standards: The Story of C](https://opensourceforu.com/2017/04/different-c-standards-story-c/)
 
-Does Column Width of 80 Make Sense in 2019?
-https://hackernoon.com/does-column-width-of-80-make-sense-in-2018-50c161fbdcf6
+[Does Column Width of 80 Make Sense in 2019?](https://hackernoon.com/does-column-width-of-80-make-sense-in-2018-50c161fbdcf6)
