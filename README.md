@@ -6,3 +6,18 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 ## Table of Contents
 
 - [C](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/C)
+
+## Topics I Want to Write
+
+- SQL
+- Clean Code
+- Technical Documentation
+- Algorithm Analysis
+- Operating Systems
+- Cloud Computing
+- LaTeX
+- Linux
+- Bash
+- Raspberry Pi
+- Console Trics
+- Project Management
