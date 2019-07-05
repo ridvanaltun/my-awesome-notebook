@@ -6,6 +6,7 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 ## Table of Contents
 
 - [C](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/C)
+- [Bash](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Bash)
 
 ## Topics I Want to Write
 
@@ -17,7 +18,6 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - Cloud Computing
 - LaTeX
 - Linux
-- Bash
 - Raspberry Pi
 - Console Trics
 - Project Management
