@@ -1,4 +1,3 @@
-
 # My Awesome Notebook 😎
 
 This repo just contains personal `cheat sheets` about some tech stacks. It is not an education material. If you find a typo or mistake; Feel free to send pull request.
@@ -7,6 +6,7 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 
 - [C](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/C)
 - [Bash](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Bash)
+- [Bootstrap](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Bootstrap)
 
 ## Topics I Want to Write
 
@@ -21,3 +21,5 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - Raspberry Pi
 - Console Trics
 - Project Management
+- jQuery
+- Javascript DOM Manipulation
