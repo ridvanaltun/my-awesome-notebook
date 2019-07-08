@@ -8,6 +8,7 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - [Bash](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Bash)
 - [Bootstrap](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Bootstrap)
 - [jQuery](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/jQuery)
+- [Console Tricks](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Console-Tricks)
 
 ## Topics I Want to Write
 
@@ -20,6 +21,5 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - LaTeX
 - Linux
 - Raspberry Pi
-- Console Trics
 - Project Management
 - Javascript DOM Manipulation
