@@ -41,7 +41,7 @@ Bu şekilde sayfamız telefondan bakıldığında otomatik küçülecek yada dah
 
 # Usage
 
-HTML etiketlerine boostrap'ın sahip olduğu sınıfları tanıtıyoruz, bu kadar. Artık sayfayı küçültürken vs telefon-tablet uyumuna kavuşmuş olduk. Ekranı farazi olarak aslında `12` sütuna bölüyoruz ve yatay bir biçimde sıralıyoruz, bunu `4-4-4` yada `6-6` yada `3-3-3-3` gibi şeklinde istediğimiz gibi bölebiliriz. sayfa küçüldükçe yine bizim seçtiğimiz klasa göre sağ yada soldaki tag aşağıya vs kayıyor olacak.
+HTML etiketlerine boostrap'ın sahip olduğu sınıfları tanıtıyoruz, bu kadar. Artık sayfayı küçültürken vs telefon-tablet uyumuna kavuşmuş olduk. Ekranı farazi olarak aslında `12` sütuna bölüyoruz ve yatay bir biçimde sıralıyoruz, bunu `4-4-4` yada `6-6` yada `3-3-3-3` gibi şeklinde istediğimiz gibi bölebiliriz. sayfa küçüldükçe yine bizim seçtiğimiz sınıfa göre sağ yada soldaki etiket aşağıya vs. kayıyor olacak.
 
 Grid (Izgara) şeklinde bölüyoruz sayfayı.
 Her farklı cihaz için bir alt sınıf bulunur.
@@ -51,7 +51,7 @@ Her farklı cihaz için bir alt sınıf bulunur.
 - md: diz üstü
 - lg: masaüstü
 
-Boostrap sistemini kullanmak için bunu kullanacağımız bölgeye bir div açıp class'ını `row` olarak ayarlarız. Sonra her satır için bir div açarız.
+Boostrap sistemini kullanmak için bunu kullanacağımız bölgeye bir div açıp sınıfı `row` olarak ayarlarız. Sonra her satır için bir div açarız.
 
 ```html
 <div class="col-sm-4">4 lü sütun</div>

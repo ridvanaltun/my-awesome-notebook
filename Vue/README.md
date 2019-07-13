@@ -401,9 +401,9 @@ const store = new Vuex.Store({
 });
 ```
 
-Vue komponent state ile oluşturulur. komponent bir action çalıştırıyor, action mutation çalıştırıyor ve state değiştiriliyor bu şekilde ynei komponent oluşturuluyor. Bu şekilde bir döngü mevcut. State yapısı ile komponent oluşturup komponent action->mutaition-->state zinciri ile güncellenmesini sağlayabiliyoruz.
+Vue komponent state ile oluşturulur. komponent bir action çalıştırıyor, action mutation çalıştırıyor ve state değiştiriliyor bu şekilde ynei komponent oluşturuluyor. Bu şekilde bir döngü mevcut. State yapısı ile komponent oluşturup komponent `action -> mutaition -> state` zinciri ile güncellenmesini sağlayabiliyoruz.
 
-src klasörü altında store adıdna bir klasör açıp index.js adında bir dosya ekle.
+src klasörü altında store adında bir klasör açıp index.js adında bir dosya ekle.
 
 ```javascript
 import Vue from 'vue';
