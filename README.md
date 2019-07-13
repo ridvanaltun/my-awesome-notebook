@@ -10,7 +10,7 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - [jQuery](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/jQuery)
 - [Console Tricks](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Console%20Tricks)
 - [Vue](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Vue)
-- [Javascript DOM Manipulation](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/javascript%20dom%20manipulation)
+- [Javascript DOM Manipulation](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Javascript%20DOM%20Manipulation)
 
 ## Topics I Want to Write
 
