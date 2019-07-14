@@ -11,13 +11,13 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - [Console Tricks](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Console%20Tricks)
 - [Vue](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Vue)
 - [Javascript DOM Manipulation](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Javascript%20DOM%20Manipulation)
+- [Algorithm Analysis](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Algorithm%20Analysis)
 
 ## Topics I Want to Write
 
 - SQL
 - Clean Code
 - Technical Documentation
-- Algorithm Analysis
 - Operating Systems
 - Cloud Computing
 - LaTeX
