@@ -12,6 +12,7 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - [Vue](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Vue)
 - [Javascript DOM Manipulation](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Javascript%20DOM%20Manipulation)
 - [Algorithm Analysis](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Algorithm%20Analysis)
+- [Linux](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Linux)
 
 ## Topics I Want to Write
 
@@ -21,6 +22,5 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - Operating Systems
 - Cloud Computing
 - LaTeX
-- Linux
 - Raspberry Pi
 - Project Management
