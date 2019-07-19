@@ -65,7 +65,7 @@ Programcı alışkanlığı ve geçmişten gelen bir şey olarak ayar dosyaları
 
 ## Linter
 
-Yazdığımız kodun belirlediğimiz kurallara uygun olup olmadığını kontrol eden ve bize bildiren programlara `linter` diyoruz. Hemen hemen her şeye koral belirlememiz mümkün.
+Yazdığımız kodun belirlediğimiz kurallara uygun olup olmadığını kontrol eden ve bize bildiren programlara `linter` diyoruz. Hemen hemen her şeye kural belirlememiz mümkün.
 
 ## Prettier
 
@@ -85,7 +85,7 @@ Projemizin `package.json` dosyasına scriptler tanımlayabilir ve projemize yük
 
 # Tools
 
-Projede `Clean Code` için kullanabileceğimiz araçlar. 
+`Clean Code` için kullanabileceğimiz araçlar. 
 
 ## EditorConfig
 
@@ -217,7 +217,6 @@ Orjinal dokümana [buradan](https://prettier.io/docs/en/editors.html?source=post
 
 ```json
 {
-  // add below to VSCode User settings to auto fix eslint formatting issues on file save
   "editor.formatOnSave": true,
   "eslint.autoFixOnSave": true,
   "eslint.alwaysShowStatus": true
