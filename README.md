@@ -13,14 +13,13 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - [Javascript DOM Manipulation](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Javascript%20DOM%20Manipulation)
 - [Algorithm Analysis](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Algorithm%20Analysis)
 - [Linux](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Linux)
+- [Clean Code](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Clean%20Code)
 
 ## Topics I Want to Write
 
 - SQL
-- Clean Code
 - Technical Documentation
 - Operating Systems
 - Cloud Computing
-- LaTeX
 - Raspberry Pi
 - Project Management
