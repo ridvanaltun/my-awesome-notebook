@@ -14,6 +14,7 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - [Algorithm Analysis](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Algorithm%20Analysis)
 - [Linux](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Linux)
 - [Clean Code](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Clean%20Code)
+- [Mass Production](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Mass%20Production)
 
 ## Topics I Want to Write
 
