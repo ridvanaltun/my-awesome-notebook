@@ -5,6 +5,7 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 ## Table of Contents
 
 - [C](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/C)
+  - [Make](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/C/Make)
 - [Bash](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Bash)
 - [Bootstrap](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Bootstrap)
 - [jQuery](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/jQuery)

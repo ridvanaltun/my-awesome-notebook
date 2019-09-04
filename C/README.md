@@ -27,9 +27,6 @@ Bu doküman C dili hakkında hatırlatıcı ve pratik bilgiler vermektir.
       - [Compiler C Language Standart Selection](#compiler-c-language-standart-selection)
       - [Static Library Usage](#static-library-usage)
       - [Dynamic Library Usage](#dynamic-library-usage)
-    + [Make and Makefile](#make-and-makefile)
-      - [Makefile Sample](#makefile-sample)
-      - [Using a File with Rule Name](#using-a-file-with-rule-name)
     + [What is Optimization?](#what-is-optimization)
   * [Debugger](#debugger)
     + [GDB Usage](#gdb-usage)
@@ -350,45 +347,6 @@ gcc sample.c -o sample libtest.so
 # konumda bulunan dinamik bir kütüphaneyi kullan
 gcc -o sample sample -L . -l mylib
 ```
-
-### Make and Makefile
-
-Make programı bir GNU Build Aracıdır. Programın özündeki amacı geliştiricinin daha kolay derleme yapmasını sağlamak. Make programı ile projemizde sadece değişen kısımlar derlenir ve içeriği değiştirilmemiş, tekrar derlenmesine gerek olmayan dosyalar aynı bırakılır, bu şekilde geliştiriciye zaman kazandırılır.
-
-- Make programı çalıştırıldığında dizinde `GNUmakefile`, `makefile` ve `Makefile` adlı dosyaları arar. 
-- Bunlara ek olarak `-f` bayrağı ile özel olarak bir Makefile dosyası işaret edebiliriz.
-- Genelde hoş gözüktüğünden `Makefile` ismi kullanılır.
-- Makefile dosyası oluştururken yapılan en büyük hata TAB yeni space karakterinin kullanılmasıdır.
-- Make programına hiçbir parametre vermeden sadece make diyerek çağırdığımızda makefile içindeki tanımladığımız ilk kuralı çalıştırır.
-- Makefile dosyası içinde değişken kullanabiliriz.
-
-#### Makefile Sample
-
-```
-CC     = gcc
-CFLAGS = -O2 -Wall -pedantic
-LIBS   = -lm -lnsl
-
-all: install
-
-ornek: ornek.o
-    $(CC) $(CFLAGS) $(LIBS) -o ornek ornek.o
-
-ornek.o: ornek.c
-    $(CC) $(CFLAGS) -c ornek.c
-
-clean:
-    rm -f ornek *.o
-
-install: ornek
-    cp ornek /usr/local/bin
-```
-
-#### Using a File with Rule Name
-
-Örneğin klasörde clean adlı bir dosya var; Bu durumda `make clean` çalıştırdığımızda clean adlı bir kural yazmış olsak bile yazdığımız kural çalışmaz. Çözümü basit; Aşağıdaki gibi yeni bir kural oluşturup dosya ile kural arasındaki farkı belirtmemiz gerekiyor.
-
-`.PHONY: clean`
 
 ### What is Optimization?
 
