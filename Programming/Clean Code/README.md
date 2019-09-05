@@ -4,36 +4,38 @@ Yazdığımız program hangi dilde olursa olsun diğer insanların kolayca anlay
 
 Bu dokümanda geliştiricilerin proje standartında temiz kod yazabilmesi için yapması gerekenler yer alıyor. Neden böyle bir dokümana ihtiyaç duyuyoruz? Yazılan kodun tek elden çıkmış gibi gözükmesi ve ileride kodu değiştirmek istediğimizde maliyeti düşürmek için projede `Clean Code` standartları kullanıyoruz.
 
-Kısaca amacımız okunabilirliği yüksek kod yazmak. 
+Kısaca amacımız okunabilirliği yüksek kod yazmak.
 
-Bunun dışında dokümanda, projede kullanılan `Clean Code` yardımcısı programların nasıl konfigüre edileceği ve genel olarak `Clean Code` konsepti anlatılıyor. 
+Bunun dışında dokümanda, projede kullanılan `Clean Code` yardımcısı programların nasıl konfigüre edileceği ve genel olarak `Clean Code` konsepti anlatılıyor.
 
 # Table of Contents
 
 <!-- toc -->
 
+- [Clean Code Guideline](#clean-code-guideline)
+- [Table of Contents](#table-of-contents)
 - [Some Rules for Writing Beautiful Code](#some-rules-for-writing-beautiful-code)
 - [Codding Standarts](#codding-standarts)
 - [Concepts](#concepts)
-  * [Dotfiles](#dotfiles)
-  * [Linter](#linter)
-  * [Prettier](#prettier)
-  * [Git Hooks](#git-hooks)
-  * [Node Scripts](#node-scripts)
+  - [Dotfiles](#dotfiles)
+  - [Linter](#linter)
+  - [Prettier](#prettier)
+  - [Git Hooks](#git-hooks)
+  - [Node Scripts](#node-scripts)
 - [Tools](#tools)
-  * [EditorConfig](#editorconfig)
-  * [EsLint](#eslint)
-    + [Overwrite Rules](#overwrite-rules)
-  * [Prettier](#prettier-1)
-  * [Husky](#husky)
-  * [Lint-Staged](#lint-staged)
+  - [EditorConfig](#editorconfig)
+  - [EsLint](#eslint)
+    - [Overwrite Rules](#overwrite-rules)
+  - [Prettier](#prettier-1)
+  - [Husky](#husky)
+  - [Lint-Staged](#lint-staged)
 - [Setting Up EsLint and Prettier for React and React-Native Projects](#setting-up-eslint-and-prettier-for-react-and-react-native-projects)
-  * [Prettier-Editor Integration](#prettier-editor-integration)
-    + [VSCode](#vscode)
-    + [Sublime Text 3](#sublime-text-3)
+  - [Prettier-Editor Integration](#prettier-editor-integration)
+    - [VSCode](#vscode)
+    - [Sublime Text 3](#sublime-text-3)
 - [Git Related](#git-related)
-  * [GitIgnore](#gitignore)
-  * [GitAttributes](#gitattributes)
+  - [GitIgnore](#gitignore)
+  - [GitAttributes](#gitattributes)
 
 <!-- tocstop -->
 
@@ -61,7 +63,7 @@ Bu başlık altında bazı konsept terimlerden bahsediyoruz.
 
 ## Dotfiles
 
-Programcı alışkanlığı ve geçmişten gelen bir şey olarak ayar dosyaları başında nokta olan dosyalarda tutulur. 
+Programcı alışkanlığı ve geçmişten gelen bir şey olarak ayar dosyaları başında nokta olan dosyalarda tutulur.
 
 ## Linter
 
@@ -85,11 +87,11 @@ Projemizin `package.json` dosyasına scriptler tanımlayabilir ve projemize yük
 
 # Tools
 
-`Clean Code` için kullanabileceğimiz araçlar. 
+`Clean Code` için kullanabileceğimiz araçlar.
 
 ## EditorConfig
 
-Text editörüne eklenmesi gereken bir eklenti bu. Genel amacı text editörleri arasındaki farkları kapamak ve farklı editörlerde ve editör ayarında geliştirme yapan insanalr arasında oluşan bazı hataları gidermek. Projenin kök klasöründe bulunan `.editorconfig` dosyasını bu program kullanıyor. Dosya içinde editörü hangi ayarlar ile kullanacağımızı yazıyoruz. 
+Text editörüne eklenmesi gereken bir eklenti bu. Genel amacı text editörleri arasındaki farkları kapamak ve farklı editörlerde ve editör ayarında geliştirme yapan insanalr arasında oluşan bazı hataları gidermek. Projenin kök klasöründe bulunan `.editorconfig` dosyasını bu program kullanıyor. Dosya içinde editörü hangi ayarlar ile kullanacağımızı yazıyoruz.
 
 Örneğin tab karekterini 2 space karekterine çevirmek.
 
@@ -113,7 +115,7 @@ Prettier bir konsept olması yanı sıra kendi başına çalışabilen popüler 
 
 `Git hooks` özelliği `.git` klasörü içinde tutulduğu için insanlar arasında paylaşılması zor. Bunu kolaylaştırmak için `husky` adında bir araç kullanıyoruz.
 
-`package.json` dosyamıza 
+`package.json` dosyamıza
 
 ```javascript
 "husky": {

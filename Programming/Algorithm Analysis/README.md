@@ -16,28 +16,30 @@ Bu doküman sonrası algoritmaları analiz yeteneğine sahip olabimeli ve hızla
 
 <!-- toc -->
 
+- [Algorithm Analysis](#algorithm-analysis)
+- [Table of Contents](#table-of-contents)
 - [Algorithms](#algorithms)
-  * [Searching Algorithms](#searching-algorithms)
-    + [Lineer Search](#lineer-search)
-    + [Binary Search](#binary-search)
-  * [Sort Algorithms](#sort-algorithms)
-    + [Selection Sort](#selection-sort)
-    + [Bubble Sort](#bubble-sort)
-    + [Merge Sort](#merge-sort)
-  * [Dynamic Memory Algorithms](#dynamic-memory-algorithms)
-    + [Linked List](#linked-list)
+  - [Searching Algorithms](#searching-algorithms)
+    - [Lineer Search](#lineer-search)
+    - [Binary Search](#binary-search)
+  - [Sort Algorithms](#sort-algorithms)
+    - [Selection Sort](#selection-sort)
+    - [Bubble Sort](#bubble-sort)
+    - [Merge Sort](#merge-sort)
+  - [Dynamic Memory Algorithms](#dynamic-memory-algorithms)
+    - [Linked List](#linked-list)
       - [Singly-Linked List](#singly-linked-list)
       - [Doubly-Linked List](#doubly-linked-list)
-    + [Hash Table](#hash-table)
-    + [Trie](#trie)
-  * [Buffer Algorithms](#buffer-algorithms)
-    + [Ring Buffer](#ring-buffer)
+    - [Hash Table](#hash-table)
+    - [Trie](#trie)
+  - [Buffer Algorithms](#buffer-algorithms)
+    - [Ring Buffer](#ring-buffer)
 - [Some Terms](#some-terms)
-  * [Growth Rate](#growth-rate)
-  * [Asymptotic Analysis](#asymptotic-analysis)
-    + [Big-0 Notation](#big-0-notation)
-    + [Omega Notation](#omega-notation)
-    + [Teta Notation](#teta-notation)
+  - [Growth Rate](#growth-rate)
+  - [Asymptotic Analysis](#asymptotic-analysis)
+    - [Big-0 Notation](#big-0-notation)
+    - [Omega Notation](#omega-notation)
+    - [Teta Notation](#teta-notation)
 
 <!-- tocstop -->
 
@@ -94,20 +96,20 @@ Listede en hızlı sıralama algoritması bu. Sıralamak istediğimiz veri küme
 
 ## Dynamic Memory Algorithms
 
-C dili ile gelen dinamik bellek yönetimi sorunu için türetilmiş algoritmalar ve bunların karşılaştırılması. 
+C dili ile gelen dinamik bellek yönetimi sorunu için türetilmiş algoritmalar ve bunların karşılaştırılması.
 
 Dinamik bellek algoritmasına neden ihtiyacımız olduğunu anlamak için C dilinde çoklu veri depolamanın yollarının atası olan dizi yapısını incelemek gerekiyor.
 
 Dizi;
 
-Eleman eklemek ve silmek için lineer bir zaman harcıyoruz. 
+Eleman eklemek ve silmek için lineer bir zaman harcıyoruz.
 
-Dezavantajlar: 
+Dezavantajlar:
 
 - Dizinin sonuna eleman eklemek basit bir iş ancak sıralanmış bir dizi kullanıyorsak ve orta kısma koymamız gereken bir veri varsa bu işi yapamıyoruz.
 - Bellekte kapladığı alan büyümüyor, esnekliği az. Bu yüzden ekstra bir veri girmek istediğimizde bize gereken kadar büyüklükte yeni bir dizi açıp eski diziyi yeni diziye tek tek kopyalanır ve yeni veriyi de üstüne kaydederiz.
 
-Avantajlar: 
+Avantajlar:
 
 - Bellekte diğer yöntemlere göre daha az yer kaplıyor.
 - Kullanması kolay.
@@ -206,7 +208,7 @@ TODO
 Bu yapıda aslında parçalanmış şekilde diziler içinde `Linked List`'ler kullanıyoruz. Bir veri aramak `Linked List`'e göre daha kolay çünkü alakasız bazı verileri eleyerek istediğimiz veriyi bulabiliyoruz. `Linked List'`e göre bellekte daha fazla yer kaplıyor ancak `Tries` algoritmasına göre daha az yer kaplıyor.
 
 Bu yapı temel olarak dizi ile `Linked List`'in birleşimi.
-Sıralama işlemi yapmak istediğimizde bu yapının bize kazandırdığı tüm avantajları kaybediyoruz, sıralama yapmak istediğimiz bir programımız varsa bu yapının kullanılması tavsiye edilmiyor. 
+Sıralama işlemi yapmak istediğimizde bu yapının bize kazandırdığı tüm avantajları kaybediyoruz, sıralama yapmak istediğimiz bir programımız varsa bu yapının kullanılması tavsiye edilmiyor.
 
 Bu algoritma için bize pozitif `hash code` üreten bir `hash function`'a ihtiyacımız var. İkinci olarak bize bir dizi gerekiyor. Elimizdeki veriyi `hash function`'a veriyoruz, `hash funstion` bir `hash code` üretiyor ve bu kodu bir arrayde depoluyoruz.
 
@@ -241,7 +243,7 @@ Bu algoritma daha çok gömülü sistemlerde iletişim amaçlı kullanılabilir 
 
 # Some Terms
 
-Algoritma analizi alakalı bazı terimler. 
+Algoritma analizi alakalı bazı terimler.
 
 ## Growth Rate
 
@@ -270,7 +272,7 @@ http://bigocheatsheet.com/
 
 ### Omega Notation
 
-Bir algoritmanın girilen n sayıdaki input ile çalışma süresini alt limiti verir. Yani algoritmanın en kötü pozisyonda n kadar veriyi ne kadar sürede işler bunun cevabını verir. 
+Bir algoritmanın girilen n sayıdaki input ile çalışma süresini alt limiti verir. Yani algoritmanın en kötü pozisyonda n kadar veriyi ne kadar sürede işler bunun cevabını verir.
 
 ### Teta Notation
 
