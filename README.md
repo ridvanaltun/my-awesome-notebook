@@ -23,7 +23,6 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - [Clean Code](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Clean%20Code)
 - [Electronics](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Electronics)
   - [Mass Production](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Electronics/Mass%20Production)
-- [Git Flow](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Git%20Flow)
 - [Phinx](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Phinx)
 
 ## Topics I Want to Write
