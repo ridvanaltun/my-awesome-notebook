@@ -6,6 +6,8 @@
 
 <!-- toc -->
 
+- [Mass Production](#mass-production)
+- [Table of Contents](#table-of-contents)
 - [Fiducial](#fiducial)
 - [Panel](#panel)
 - [Cheap Mass Production](#cheap-mass-production)
