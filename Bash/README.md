@@ -10,8 +10,12 @@ Bash kullanarak bir çok işi otomatize edebilir ve komplike bazı işleri daha 
 
 <!-- toc -->
 
+- [Bash](#bash)
+- [Table of Contents](#table-of-contents)
 - [Bash Alternatives](#bash-alternatives)
 - [Shebang](#shebang)
+- [Login and Logout Scripts](#login-and-logout-scripts)
+- [Edit Profile File](#edit-profile-file)
 - [Execute Bash Scripts](#execute-bash-scripts)
 - [Define Variable](#define-variable)
 - [Environment Variables](#environment-variables)
@@ -29,10 +33,10 @@ Bash kullanarak bir çok işi otomatize edebilir ve komplike bazı işleri daha 
 - [File Operations](#file-operations)
 - [Case](#case)
 - [Loops](#loops)
-  * [For Loop](#for-loop)
-  * [While Loop](#while-loop)
-  * [Until Loop](#until-loop)
-  * [Special Commands](#special-commands)
+  - [For Loop](#for-loop)
+  - [While Loop](#while-loop)
+  - [Until Loop](#until-loop)
+  - [Special Commands](#special-commands)
 - [Functions](#functions)
 - [Select](#select)
 - [Extra Commands](#extra-commands)
@@ -52,6 +56,45 @@ Bash script'ler `#!/bin/bash` satırı ile başlar. Eğer scriptimizi `./filenam
 
 Misal bash programı bin klasörünün altında değil diyelim, nerede olduğunu öğrenmek için `which bash` yazarsak konsolda bize programın hangi dizinde olduğunu döndürür, örneğin `perl` programı için `which perl` şeklinde yazarak hangi dizinde olduğunu döndürtebiliriz.
 
+# Login and Logout Scripts
+
+Bash'i login olup yada guest olarak kullanabiliriz. Bash programı login olduğumuzda özel bir yapı ile çalışır. Login olarak girmek için `--login` veya `-l` argümanıyla bash programını çalıştırmamız gerekiyor.
+
+Bash programı açılırken eğer login olarak açmışsak sırasıyla aşağıdaki dosyalar execute edilir.
+
+```
+/etc/profile
+~/.bash_profile
+~/.bash_login
+~/.profile
+```
+Bu dosyaların çalışması için var olması ve okuma izinlerinin olması gerekiyor.
+
+Bash programını açarken `-noprofile ` argümanı kullandıysak profile dosyaları execute edilmez.
+
+Çıkış yaparken de aşağıdaki dosyalar sırasıyla execute edilir.
+
+```
+~/.bash_logout
+/etc/bash.bash_logout
+```
+
+Çalıştırılan bu dosyalar kullanıcıya göre değişiklik gösteriyor.
+
+```
+~/.bash_profile     // kullanıcıya özel
+/etc/profile        // root hariç tüm kullanıcılar
+/root/.bash_profile // sadece root kullanıcısı
+```
+
+# Edit Profile File
+
+```bash
+source ./.bash_profile
+```
+
+Bu komut ile değişikliği anında kullanabiliriz. Diğer türlü bash programını kapatıp açmamız gerekir.
+
 # Execute Bash Scripts
 
 Eğer yazdığımız scripti `sh foo.sh` şeklinde çalıştırmak istemiyorsak, sadece dosya adı ile çağırmak istiyorsak `chmod +x foo.sh` şeklinde dosyamıza çalıştırma izni vermeliyiz.
@@ -69,7 +112,6 @@ ls -lat
 Şeklinde ayarlayıp chmod+x ile çalıştırma izni verip aynı zamanda bu dosyayı `cp -rp foo.sh /usr/bin/dizinlistele` diyerek yazdığımız scripti gösterdiğimiz hedefe kopyalarsak eğer bundan sonra hangi dizinde olursak olalım konsola sadece `dizinlistele` yazdığımızda tarihe göre dizin listeler.
 
 # Define Variable
-
 
 ```bash
 a=ali
