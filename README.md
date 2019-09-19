@@ -25,9 +25,10 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - [Electronics](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Electronics)
   - [Mass Production](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Electronics/Mass%20Production)
 - [Bootstrap](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Bootstrap)
-- [Virtualization](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Virtualization)
-  - [Docker](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Virtualization/Docker)
-  - [Vagrant](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Virtualization/Vagrant)
+- [DevOps](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/DevOps)
+  - [Virtualization](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/DevOps/Virtualization)
+    - [Docker](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/DevOps/Virtualization/Docker)
+    - [Vagrant](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/DevOps/Virtualization/Vagrant)
 
 ## Topics I Want to Write
 
