@@ -20,6 +20,7 @@ Bash kullanarak bir çok işi otomatize edebilir ve komplike bazı işleri daha 
 - [Define Variable](#define-variable)
 - [Environment Variables](#environment-variables)
 - [Assign Command's Output to Variable](#assign-commands-output-to-variable)
+- [Exit When Error](#exit-when-error)
 - [Getting Arguments from the Command Line](#getting-arguments-from-the-command-line)
 - [Shift](#shift)
 - [Getting Value from the User](#getting-value-from-the-user)
@@ -50,11 +51,13 @@ Son dönemlerde popüler olan `Zsh` var. Daha çok var ancak ayrıca incelemeye 
 
 # Shebang
 
-UYARI! : Windows üstünde bash script yazıyorsak shebag kullanımı bize hata verecektir.
+UYARI! : Windows üstünde bash script yazıyorsak shebag kullanımı bize hata verebilir, Windows ile shebag kullanmaya gerek yokturr.
 
-Bash script'ler `#!/bin/bash` satırı ile başlar. Eğer scriptimizi `./filename` şeklinde çalıştırırsak ilk satır linux işletim sisteminde okunur ve ilk satırda işaret edilen program ile birlikte dosya açılır.
+Bash script'ler `#!/bin/bash` satırı ile başlar. Eğer scriptimizi `./filename` şeklinde çalıştırırsak ilk satır Linux işletim sisteminde okunur ve ilk satırda işaret edilen program ile birlikte dosya açılır.
 
 Misal bash programı bin klasörünün altında değil diyelim, nerede olduğunu öğrenmek için `which bash` yazarsak konsolda bize programın hangi dizinde olduğunu döndürür, örneğin `perl` programı için `which perl` şeklinde yazarak hangi dizinde olduğunu döndürtebiliriz.
+
+Windows işletim sisteminde bir dosya açarken dosyanın uzantısına bakılır, Linux sistemlerde dosya açılırken ilk satırına bakılır, işaret edilen program ile dosya açılır. Bu sebeple shebag sadece linux içindir. Linux için dosya uzantısının bir önemi yoktur, dosyanın içeriğine bakmadan hangi program ile çalıştırılacağını anlamak için uzantı kullanabiliriz, örneğin `.sh` koyarak bir `shell` programı ile çalıştırılması gerektiğini anlarız.
 
 # Login and Logout Scripts
 
@@ -62,7 +65,7 @@ Bash'i login olup yada guest olarak kullanabiliriz. Bash programı login olduğu
 
 Bash programı açılırken eğer login olarak açmışsak sırasıyla aşağıdaki dosyalar execute edilir.
 
-```
+```bash
 /etc/profile
 ~/.bash_profile
 ~/.bash_login
@@ -74,26 +77,30 @@ Bash programını açarken `-noprofile ` argümanı kullandıysak profile dosyal
 
 Çıkış yaparken de aşağıdaki dosyalar sırasıyla execute edilir.
 
-```
+```bash
 ~/.bash_logout
 /etc/bash.bash_logout
 ```
 
 Çalıştırılan bu dosyalar kullanıcıya göre değişiklik gösteriyor.
 
-```
-~/.bash_profile     // kullanıcıya özel
-/etc/profile        // root hariç tüm kullanıcılar
-/root/.bash_profile // sadece root kullanıcısı
+```bash
+~/.bash_profile     # kullanıcıya özel
+/etc/profile        # root hariç tüm kullanıcılar
+/root/.bash_profile # sadece root kullanıcısı
 ```
 
 # Edit Profile File
 
 ```bash
-source ./.bash_profile
+source ~/.bash_profile
+
+# veya
+
+. ~/.bashrc
 ```
 
-Bu komut ile değişikliği anında kullanabiliriz. Diğer türlü bash programını kapatıp açmamız gerekir.
+Bu komut ile değişikliği anında uygulamış oluruz. Diğer türlü bash programını kapatıp açmamız gerekir.
 
 # Execute Bash Scripts
 
@@ -117,7 +124,7 @@ ls -lat
 a=ali
 b=99
 c="Deneme Yazısı"
-echo $a $b $c 
+echo $a $b $c
 
 # OUTPUT: ali 99 Deneme
 ```
@@ -129,7 +136,16 @@ Değişken tanımlamanın bazı kuralları:
 - Eğer tek kelime yazacaksak tırnak yada çift tırnak kullanmamıza gerek kalmıyor.
 - Değişken, eşittir işareti ve tanımladığımız değer arasında boşluk karakteri olmamalı.
 
+Aşağıdaki örnekte bir değişken oluşturduk sonra bu değişkeni sildik.
+
+```bash
+var=value
+unset var
+```
+
 # Environment Variables
+
+Ortam değişkenlerine tüm alt-betikler erişebilir, normal değişken tanımladığımızda bu değişken diğer betiklere aktarılamaz. Bir script ile başka bir script çağırırken ana script içine bir ortam değişkeni koyarsak çağırdığımız script'in içinde bu ortam değişkenini kullanabiliriz.
 
 - $HOME -> Çalıştığımız kullancının home dizini nerede onu döndürüyor.
 - $USER -> Çalıştığımız kullanıcıyı döndürür.
@@ -139,6 +155,12 @@ Değişken tanımlamanın bazı kuralları:
 - $HOSTNAME -> host adını döndürür.
 
 Çok fazla çevresel değişken var, internette daha fazlasını öğrenmek mümkün.
+
+Bunlar dışında özel olarak ortam değişkeni tanımlayabiliyoruz.
+
+```bash
+export var=value
+```
 
 # Assign Command's Output to Variable
 
@@ -155,6 +177,22 @@ Parantez içinde ki komut ne döndürüyorsa bunu load değişkeni içine array 
 mem=$(free -m | grep Mem: | awk{'print $3'})
 echo Sunucunun Kullanimindaki Bellek Miktari: $mem MB
 ```
+
+# Exit When Error
+
+Yazdığımız script hata kodu üretince bash çıksın.
+
+Script içine `set -e` şeklinde bir komut girmemiz yeterli. Script çalışırken hata verirse script sonlandırılır. `set +e` ile hata alınca sonlandırma işlemini pasif hale getirebiliriz.
+
+Bir diğer yöntem ise `shebag`'e `-e` şeklinde bir argüman vermek.
+
+`#!/bin/bash -e` şeklinde `shebag` kullanırsak eğer hata aldığımızda program sonlandırılır.
+
+`-e` argümanı gibi `-u` ve `-x` parametreside kullanabiliriz.
+
+`-u` ile önceden tanımlanmamış bir değişken kullanılmışsa hata verir ve bize durumu bildirir.
+
+`-x` ise `debug` modu ile çalıştırılır, execute edilen komutlar hata çıktısında `+` şeklinde gösterilir, bizde başında `+` olmayan komutun hata verdiğini bu şekilde anlarız.
 
 # Getting Arguments from the Command Line
 
