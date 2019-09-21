@@ -25,6 +25,7 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
   - [fzf](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Toolchain/fzf)
   - [Git](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Toolchain/Git)
     - [Git Flow](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Toolchain/Git/Git%20Flow)
+    - [Tig](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Toolchain/Git/Tig)
 - [Electronics](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Electronics)
   - [Mass Production](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Electronics/Mass%20Production)
 - [Bootstrap](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Bootstrap)
