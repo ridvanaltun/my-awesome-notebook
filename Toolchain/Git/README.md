@@ -493,6 +493,7 @@ git revert commit_id
 # Normal git add ve git commit komutlarını kullanarak commit atarız, en sonunda `git rebase --continue` ile işlemi bitiririz
 # Commit id bu işlemler sonrası değişir
 # Burada -i parametresi interaktif anlamına geliyor
+# NOT: 'git rebase --abort' komutu ile yaptığımız değişiklikleri geri alıp işemi iptal edebiliriz
 git rebase -i HEAD~2
 ```
 
