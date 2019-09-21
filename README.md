@@ -21,6 +21,7 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
   - [Console Tricks](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Development%Environment/Console%20Tricks)
 - [Toolchain](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Toolchain)
   - [cURL](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Toolchain/cURL)
+  - [HTTPie](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Toolchain/HTTPie)
   - [Git](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Toolchain/Git)
     - [Git Flow](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Toolchain/Git/Git%20Flow)
 - [Electronics](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Electronics)
