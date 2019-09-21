@@ -9,6 +9,11 @@ Git hakkında bildiklerim.
   - [Help](#help)
   - [Branch Naming](#branch-naming)
   - [Tricks](#tricks)
+  - [Git Object Model](#git-object-model)
+  - [Git Patch Mode](#git-patch-mode)
+  - [Git Bundle](#git-bundle)
+  - [Git Submodules](#git-submodules)
+  - [Git Hooks](#git-hooks)
   - [Gitignore](#gitignore)
   - [Clone](#clone)
   - [Branch](#branch)
@@ -57,6 +62,62 @@ junk      Throwaway branch created to experiment
 - Sadece son commit'e bakmak istiyorsak `git show HEAD`
 - Sondan bir önceki commit mesela `HEAD~1` şeklinde ifade edilebiliyor.
 
+## Git Object Model
+
+`blob` açılımı `binary large object`.
+
+Kaynak dosya içerikleri `blob`, dosya/klasör yapısı `tree` şeklinde gösterilir. Bir diğer obje ise `tag`.
+
+// TODO
+
+## Git Patch Mode
+
+Git'in yapılma sebeplerinden biride bu. Linus Tovards'a e-posta yolu ile geliştiricilerden bir çok kod geliştirmesi alıyormuş, bunları `review` etmek zor bir işlem. Bu nedenle yapılmış olması olası.
+
+```bash
+git add -p
+```
+
+`hunk` denen bir olay var, türkçe karşılığı iri parça. `patch` işlemini yaptığımızda bize tek tek soruyor, istediğimiz değişiklikleri kolayca parça parça entegre edebiliyoruz.
+
+`patch` işlemini başlatınca aşağıdaki seçenekler ile çalışıyoruz. `hunk` ile ne yapacağımızı seçiyoruz.
+
+- y : YES, bu hunk’ı al.
+- n : NO, bu hunk’ı alma.
+- q : QUIT, hiçbir şey yapmadan çık ve devam etme.
+- a : ALL, bu hunk dahil, dosyadaki diğer tüm hunk’ları al.
+- d : DON’T, bu hunk dahil, diğer tüm hunk’ları alma.
+- / : SEARCH, girilecek REGEX paternine göre hunk ara.
+- e : EDIT, elle hunk’ı düzenle.
+- ? : HELP, yardım için.
+
+## Git Bundle
+
+Tüm `repo`'yu tek bir dosya şekline getirmemizi sağlıyor.
+
+`git bundle create myproject.bundle --all` şeklinde bir kullanımı var.
+
+Projemizi zip'lemiş gibi oluyoruz. İnsanlarla repo'muzu paylaşmak için bu yöntemi tercih edebiliriz.
+
+// TODO
+
+## Git Submodules
+
+// TODO
+
+## Git Hooks
+
+`.git/hooks` klasörü altında onlarca `.sample` uzantılı örnek script dosyası var. `.sample` uzantısını silerek bu dosyaları kullanabiliriz veya kendimiz bir script yazabiliriz.
+
+Nelere `hook` yazılabilir:
+
+- pre-commit (commit öncesi)
+- pre-rebase (rebase öncesi)
+- post-checkout (checkout sonrası)
+- post-merge (merge sonrası)
+
+gibi. dahası da var.
+
 ## Gitignore
 
 Tanımladığımız dosya ve klasörler `git` tarafıdan yok sayılır.
@@ -69,6 +130,14 @@ git clone <url> <where-to-clone>
 
 # Tüm projeyi kopyalamak yerine sadece branchi klonladık
 git clone <url> -b <branch-name> <where-to-clone>
+
+# Shallow Clone
+# Aşağıdaki komut ile sadece projenin HEAD versiyonunu indirdik
+# Commit History'si fazla olan projeleri indirirken kullanılıyor genelde
+# Projenin yapısına göre binlerce megabyte indirmekten kurtulabiliriz
+# Git v1.9 sonrası için shallow clone'lar için pull ve push özelliği getirildi
+# Git Shallow'u bazı git programları desteklemiyor, açarken problem yaşıyor
+git clone --depth 1 <url>
 ```
 
 ## Branch
@@ -137,17 +206,21 @@ Tag silip aynı adda açmak yerine
 ## Git Config
 
 ```bash
-# Kullanıcı adımı ayarladım
+# Global olarak kullanıcı adımı ayarladım
 git config --global user.name "Rıdvan Altun"
 
-# Eposta adresimi ayarladım
+# Global olarak e-posta adresimi ayarladım
 git config --global user.email "ridvanaltun@outlook.com"
 
-# Ayarladığım ada baktım
-git config --get user.name
+# Global olarak ayarladığım ada baktım
+git config --global --get user.name
 
 # Tüm global .gitconfig ayarları listelenir
-git config --list
+git config --global --list
+
+# Projedeki master branch'in remote'unu origin olarak değiştiridm
+# Artık master dalında pull ve push yaparken origin üstünde çalışıcaz
+git config branch.master.remote origin
 ```
 
 ## Security with SSH
@@ -162,13 +235,13 @@ Eğer şifre koyarsak her işlemde bize şifre sorar, şifre kısmını boş bı
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
 
-`.ssh/` kasörü içidne bride `known_hosts` adında bir dosya var. Bir siteye ilk defa ssh ile bağlanma isteği attığımızda ssh programı soruyor bize bu siteyi güvenilir kaynaklara ekleyeyim mi diye. Bu sayede `MITM` saldırılarına karşı korunuyoruz, araya birisi girip ben git serveriyim diye bizi kandıramıyor.
+`.ssh/` kasörü içidne bride `known_hosts` adında bir dosya var. Bir siteye ilk defa SSH ile bağlanma isteği attığımızda SSH programı soruyor bize bu siteyi güvenilir kaynaklara ekleyeyim mi diye. Bu sayede `MITM` saldırılarına karşı korunuyoruz, araya birisi girip ben git serveriyim diye bizi kandıramıyor.
 
-Bir siteteye manuel olarak ssh bağlantısı şu şekilde atmak mümkün: `ssh ldn01.jamieweb.net`
+Bir siteteye manuel olarak SSH bağlantısı şu şekilde atmak mümkün: `ssh ldn01.jamieweb.net`
 
-Bir sitenin ssh key'ini şu şekilde manuel oalrak görmek mümkün: `ssh-keyscan ldn01.jamieweb.net`, known_hosts fosyasına buradan okuduğumuz verileri girerek te hazırlayabiliriz.
+Bir sitenin SSH key'ini şu şekilde manuel oalrak görmek mümkün: `ssh-keyscan ldn01.jamieweb.net`, known_hosts fosyasına buradan okuduğumuz verileri girerek te hazırlayabiliriz.
 
-Ssh programının kendi config dosyası var: `/etc/ssh/sshd_config`, bu dosya içinde hosts ne olursa olsun güven diye bir parametre var, istersek hiç bir host'a sordurtmadan tüm bağlantılarımızı gücenli kabül et te diyebiliriz.
+SSH programının kendi config dosyası var: `/etc/ssh/sshd_config`, bu dosya içinde hosts ne olursa olsun güven diye bir parametre var, istersek hiç bir host'a sordurtmadan tüm bağlantılarımızı gücenli kabül et te diyebiliriz.
 
 ## Merge
 
@@ -313,19 +386,22 @@ Bir commit'i alıp başka bir branch'e uygulama işine `cherry pick` deniyor.
 
 ```bash
 # Repo'ya remote ekle. Origin adı altında bir remote ekledik.
-git remote add origin git@git.assembla.com:portfolio/space.space_name.git
+git remote add origin <url>
 
 # Repo'ya bağlanmış remote'ları listele
 git remote
 
-# Repo'daki remote'ları detaylı listele.
+# Repo'daki remote'ları detaylı listele, -v anlamı verbose.
 git remote -v
 
 # Belirtilen remote'u sil.
-git remote rm <kısa yol adı>
+git remote remove <remote-adı>
 
 # Remote için verilen adı değiştir, örneğin origin inin
-git remote rename <kısa yol adı> <kısa yol yeni adı>
+git remote rename <remote-adı> <yeni-remote-adı>
+
+# Remote'un URL'ini değiştir
+git remote set-url <remote-adı> <url>
 ```
 
 ## Undoing Bad Commits
@@ -348,6 +424,11 @@ git commit --amend -m "Yeni Commit Mesajı"
 # Düzenlemek zorunda değiliz, istersek bu sayfada commit mesajını değiştirebiliriz
 # Git History değişeceği için sadece push edilmemiş commitler üzerinde uygulanmalıdır
 git commit --amend
+
+# Son commit' ekstra oalrak stage'e eklediğimiz dosyaları ekledik
+# Commit mesajını değiştirmel zorunda değiliz çünkü --no-edit kullandık
+# Commit id değişiyor tabi
+git commit --amend --no-edit
 
 # Commit'i yanlış branch'e attık
 # Commit'i silip diğer branch'e taşımalıyız
@@ -400,6 +481,19 @@ git checkout geri_almak_istedigimiz_commit_in_id_si alacağımız_dosyanın_yolu
 # git diff ile özellikle neleri geri aldığımızı commit_id'leri belirterek görebiliriz
 # Dikkat edilmesi gerek: donmek istediğimiz değil, revert etmek istediğimiz commit'e kadar gösteriyoruz
 git revert commit_id
+
+# Son iki commit'i default texxt editörümüzde hangi işlemden geçirmek istediğimzii sorar
+# İstersek tüm commitlerimizi elden tek bir komutla geçirebiliriz
+# Tüm commit mesajlarını elden geçirebiliriz
+# İstediğimiz commitleri kolaylıkla silebiliriz
+# Commitlerin sırasını değiştirebiliriz, komut sonrası açılan pencerede seçili commitlerin sırasını değiştirmek yeterli
+# Commitleri squash yada fixup ile birleştirebiliriz
+# Commit'i bölebiliriz, iki farklı commit şekline getirebilriiz mesela, edit seçeneğini kullanarak
+# Bunu yapmak biraz karışık, edit yaptığımızda yeni-özel bir branch açılır, git reset ^HEAD komutu ile unstage yaparız
+# Normal git add ve git commit komutlarını kullanarak commit atarız, en sonunda `git rebase --continue` ile işlemi bitiririz
+# Commit id bu işlemler sonrası değişir
+# Burada -i parametresi interaktif anlamına geliyor
+git rebase -i HEAD~2
 ```
 
 ## Log
@@ -422,6 +516,9 @@ git log branch_name_one..branch_name_two
 
 # Bir dosya üstünden geçen commitleri göster
 git log --follow -- filename
+
+# Pager olmadan tüm çıktıyı gösteriyor
+git --no-pager log
 ```
 
 ## Fetch
@@ -429,8 +526,14 @@ git log --follow -- filename
 `git pull` ile tek farkı `merge` işlemi yapmadan değişiklikleri çekmesi.
 
 ```bash
-# upstream adında bir dal aç ve içine tüm değişiklkleri taşı
+# upstream adındaki remote'u güncelle
 git fetch upstream
+
+# Tüm remote'ları güncelle
+git fetch --all
+
+# Tüm remote'ları güncelle, silinmiş bir dal varsa onuda sil
+git fetch --all --prune
 ```
 
 ## Syncing Fork
@@ -444,7 +547,7 @@ git remote add upstream git://github.com/ORIGINAL-DEV-USERNAME/REPO-YOU-FORKED-F
 git fetch upstream
 
 # Yapılmış değişiklikleri master dalımıza uyguluyoruz
-git merge upstream/master
+git rebase upstream/master
 ```
 
 ## Merging Tools
