@@ -8,6 +8,7 @@ Terminal deneyimini arttırmak için tuttuğum notlar.
 
 - [Console Tricks](#console-tricks)
 - [Table of Contents](#table-of-contents)
+- [Tricks](#tricks)
 - [Tab Managment](#tab-managment)
 - [Shorcuts](#shorcuts)
 - [Tmux](#tmux)
@@ -34,6 +35,7 @@ Terminal deneyimini arttırmak için tuttuğum notlar.
   - [Cygwin and Mingw](#cygwin-and-mingw)
   - [WSL](#wsl)
 - [Console Programs](#console-programs)
+  - [awk](#awk)
   - [cut](#cut)
   - [find](#find)
   - [grep](#grep)
@@ -44,8 +46,26 @@ Terminal deneyimini arttırmak için tuttuğum notlar.
   - [wc](#wc)
   - [tail and head](#tail-and-head)
 - [Extra Console Programs](#extra-console-programs)
+- [JSON, YAML, XML and HTML Processing](#json-yaml-xml-and-html-processing)
 
 <!-- tocstop -->
+
+# Tricks
+
+Konsola `\` yazdığımız zaman aşağı satıra geçebiliyoruz.
+Uzun komutları yazmak için tercih edilebilir.
+
+```bash
+echo "Hello" \
+&& echo "World" \
+&& ls
+```
+
+Bir programın çıktısını `clip` programıyla `clip board`'a kopyalayabiliyoruz. Aşağıda gösterildiği gibi.
+
+```bash
+echo Hello | clip
+```
 
 # Tab Managment
 
@@ -272,6 +292,50 @@ Bazı linux programlarını windows sisteminde kullanabilmek için bu programlar
 
 Bu programların çoğu Linux sistemlerde mevcut. Gerekli binary'leri edindikten sonra veya `Cygwin`, `Mingw` gibi çözümlerle bu programları Windows içinde kullanabilmek mümkün.
 
+## awk
+
+Bu programın adı kendisini yazan 3 yazılımcıların adının ilk harflerinden geliyor. İngilizce bir çevirisi yok bu yüzden.
+Bu program kelime işlemek için bize bir dil sunuyor.
+
+```bash
+cat dosya.txt
+
+: '
+Ad Soyad Yaş Şehir Cinsiyet
+Burcu Yılmaz 33 Kars
+
+Murat Durmuş 27 Antalya
+   30 K
+'
+
+awk '{print $1}' ~/dosya.txt
+
+: '
+Ad
+Burcu
+
+Murat
+30s
+'
+
+awk '{print $1 $2}' ~/dosya.txt # Bu komut ile ad soyad birlikte yazdırabiliriz
+
+# NR ile satır sayısı
+# NF ile kelime sayısı
+
+awk '{print NF}' ~/dosya.txt # Satırlardaki kelime sayıları
+
+: '
+5
+0
+4
+2
+'
+
+awk '{if (NR!=1) {print}}' ~/ornek.txt # satır sayısı 1 olmayanların çıktısı
+
+```
+
 ## cut
 
 ```bash
@@ -448,12 +512,12 @@ tail -1 dosya.txt
 ```bash
 diff        <-- iki dosya arasındaki farkları gosterir
 uniq        <-- birbirinden farklı seyleri listelemek icin kullanılır
-less        <-- 
+less        <--
 more        <--
 printenv    <-- sistemdeki kayıtlı degiskenleri yazdırır
 cat a.txt   <-- dosyadaki veriyi print eder
 pwd         <-- bulunduğum dizini gösterir
-whoami      <-- şuanda ki aktif kullanıcıyı gosterir
+whoami      <-- şuanda ki aktif kullanıcının id sini döndürür
 man echo    <-- echo programı hakkında bilgi veren detaylı bir doküman döndürür
 free        <-- boştaki ram miktarını dondurur
 cal         <-- takvim dondurur
@@ -461,4 +525,70 @@ shutdown    <-- bilgisayarı kapatır
 time        <-- sistem saatini dondurur
 du          <-- disk usage, bütün klasör-dosyaların kullandığı alan list
 df          <-- ??
+dig google.com <-- DNS lookup, DNS sunucusu biz google.com a girince ne döndürüyor
+man tool_name  <-- manual, ismini verdiğimiz aracın kullanım detaylarını verir
+```
+
+# JSON, YAML, XML and HTML Processing
+
+`jq` programıyla elimizdeki `.json` çıktısını renklendirme ve çıktıdan istediğimiz veriye kolayca erişebilmek.
+
+```bash
+# Çıktıyı renklendiriyoruz
+cat test.json | jq .
+
+# İlk elementi al
+cat test.json | jq .[0]
+
+# İkinci elementi al
+cat test.json | jq .[1]
+
+# Tüm alt elementlerin email değerini yazdır
+cat test.json | jq .[].email
+
+# "abc@gmail.com"
+# "xyz@example.com"
+
+# Tüm alt elementlerin email değerini raw şekilde yazdır
+cat test.json | jq -r .[].email
+
+# abc@gmail.com
+# xyz@example.com
+
+# Yeni bir JSON çıktısı oluşturduk
+cat test.json | jq '.[] | { Name: .name, Surname: .surname }' | jq -s
+```
+
+Yaml
+
+```bash
+# Çıktıyı renklendir
+cat test.yml | yq . -y
+
+# Yaml dosyasını özel bir json'a çevirip yazdırdık
+cat test.yml | yq '.[] | { Name: .name, Email: .email }'
+
+# Yaml dosyasını özel bir yaml dosyasına çevirip yazıdrdık
+cat test.yml | yq '.[] | { Name: .name, Email: .email }' -y
+```
+
+Mantığı çok basit. `XML` için de `xq` adlı bir program var. Mantığı tamamen `jq` ve `yq` ile aynı. XML çıktılar almak için `xq` ile `-x` parametresi kullanıyoruz sadece.
+
+HTML içinde `pup` adında bir program var. Bu araç ile HTML sayfasını parçalayıp istediğimiz verileri komut satırında alabiliriz.
+
+```bash
+# Eksisozlukteki gundem basliklarinin linklerini getirir
+curl -sL eksisozluk.com | pup 'ul[class="topic-list partial"]' | pup 'li a attr{href}'
+
+# Çıktıyı JSON'a çevirdik
+curl -sL eksisozluk.com | pup 'ul[class="topic-list partial"]' | pup 'li a json{}' | jq .[] | { count: .children[0].text, href: .href } | jq -s 'sort_by(.count | tonumber) | .[]'
+
+# {
+#  "count": "11",
+#  "href": "/abc?a=popular"
+# }
+# {
+#  "count": "12",
+#  "href": "/xyz?a=populer"
+# }
 ```
