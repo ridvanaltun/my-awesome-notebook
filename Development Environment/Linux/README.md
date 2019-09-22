@@ -11,6 +11,7 @@ Bu dokümanda kişisel linux deneyimimi paylaşıyorum.
 - [LTS](#lts)
 - [Grub](#grub)
   - [Config](#config)
+- [Everything is a File](#everything-is-a-file)
 - [Linux Folder Structure](#linux-folder-structure)
 - [User Management](#user-management)
 - [Permission Management](#permission-management)
@@ -33,6 +34,9 @@ Bu dokümanda kişisel linux deneyimimi paylaşıyorum.
   - [Method 2: .bashrc](#method-2-bashrc)
   - [Method 3: init.d](#method-3-initd)
   - [Method 4: crontab](#method-4-crontab)
+- [Background Jobs](#background-jobs)
+- [Process](#process)
+- [BusyBox](#busybox)
 
 <!-- tocstop -->
 
@@ -42,7 +46,7 @@ Bu dokümanda kişisel linux deneyimimi paylaşıyorum.
 
 # Grub
 
-Grub nedir? Bilgisayarımızı `dual-boot` kullanacaksak eğer bu yazılım ile bilgisayarı hangi işletim sistemi ile başlatabileceğimizi seçebiliyoruz. Grub, Ubuntu ile beraber gelen bir yazılım.
+Bilgisayarımızı `dual-boot` kullanacaksak eğer bu yazılım ile bilgisayarı hangi işletim sistemi ile başlatabileceğimizi seçebiliyoruz. Grub, Ubuntu ile beraber gelen bir yazılım.
 
 ## Config
 
@@ -65,6 +69,10 @@ Değişikliği kaydetmek için `CTRL + S` ardından çıkmak için `CTRL + Q`
 
 `CTRL + ALT + T ` ile terminal açıp değişikliği kalıcı hale getirmek için `sudo update-grub` komutunu giriyoruz.
 
+# Everything is a File
+
+Linux ta her şey bir dosyadır. Windows da ise bilgisayarın bir bilgisine ulaşmak için API windows'un kendi seçtiği dillerde API'lar kullanırken Linux ta her şey dosya olduğu için istediğimiz bilgilere istediğimiz dilde sadece dosya okuyarak ve kelime işleyerek ulaşabiliyıruz, özel bir API ihtiyacımız olmuyor.
+
 # Linux Folder Structure
 
 ```
@@ -72,14 +80,14 @@ Değişikliği kaydetmek için `CTRL + S` ardından çıkmak için `CTRL + Q`
 /boot   : Başlangıç için gerekli dosyaları bulundurur
 /dev    : Donanım dosyaları vardır
 /etc    : Sistem ayarlarını barındırır, kullanıcı ve şifreler vs.
-/lib    : Kütüphane dosyaları ve kernel modülleri bulunur 
+/lib    : Kütüphane dosyaları ve kernel modülleri bulunur
 /media  : CD-Rom, Flash bellek vs. sisteme eklendiği klasördür.
-/mnt    : Bir dosya sistemini geçici olarak eklemek için kullanılır. 
+/mnt    : Bir dosya sistemini geçici olarak eklemek için kullanılır.
 /opt    : Program Files gibi bir yapı, 3. parti uygulamalar buraya yüklenir
 /sbin   : Sistemi yöneticisiyle ilgili çalıştırabilir dosyaları tutar.
 /srv    : Sistemin sunduğu hizmetlerle alakalıdır
 /tmp    : Geçici dosyaları tutmak içindir, OS açılırken burası silinir
-/usr    : İkincil bir hiyerarşi 
+/usr    : İkincil bir hiyerarşi
 /var    : Değişken verileri saklar, log dosyaları burada bulunur
 /home   : kullanıcımızın ana dizinidir
 /root   : root kullanıcısının ana dizinidir
@@ -248,7 +256,7 @@ sudo !!
 
 Terminalde bir komutun döndürdüğü değeri başka bir komuta aktarmak mümkün.
 
-- Operator: < 
+- Operator: <
 - Bir dosyayı bir komuta yönlendirmek için kullanılır.
 
 ```bash
@@ -272,7 +280,7 @@ ksayi.txt > wc dosya.txt
 wc dosya.txt << ksayi.txt
 ```
 
-- Operator: | 
+- Operator: |
 - Bir komutun çıktısını başka bir komuta aktarır.
 - Linux dünyasında `Pipline` olarak geçiyor.
 
@@ -296,11 +304,11 @@ TODO
 
 ## Symbolic Link
 
-- Windows üstünde dosya veya klasörler için oluşturduğumuz shortcut'ın aynısı. 
+- Windows üstünde dosya veya klasörler için oluşturduğumuz shortcut'ın aynısı.
 - Dosyayı farklı yerlerde kullanmak isterken kopya oluşturmak yerine sembolik link oluşturuyoruz.
 
 ```bash
-# Bu şekilde hem dosya hem klasör linki oluşturabiliriz. 
+# Bu şekilde hem dosya hem klasör linki oluşturabiliriz.
 ln -s /dizin/dosya.txt /linkin/olusturulacagi/dizin/dosya.txt
 
 # Bu şekilde linki silebiliriz.
@@ -309,7 +317,7 @@ unlink dosya.txt
 
 ## Hard Link
 
-- Hardlink genellikle güvenlik, yedekleme için kullanılıyor. 
+- Hardlink genellikle güvenlik, yedekleme için kullanılıyor.
 - Bir hardlinki sildiğimizde diğeri sapasağlam yerinde kalır.
 
 ```bash
@@ -346,14 +354,14 @@ Neden bin dizinini anlatıyorum? Sebebi çok basit, distronun reposunda bulunmay
 Bin şeklinde birden fazla dizin var;
 
 ```bash
-# Sistem başlangıcında ilk olarak burası çalıştırılır, 
-# Çok temel, hayati linux programaları bu dizin içinde tutuklur. 
+# Sistem başlangıcında ilk olarak burası çalıştırılır,
+# Çok temel, hayati linux programaları bu dizin içinde tutuklur.
 # rm, cp, mkdir, bash, ls gibi.
-/bin 
+/bin
 
-# Hayati olmayan programlar için bu dizin kullanılıyor. 
-# ping, tar, unzip, sudo gibi. 
-# Ayrıca distroya bir program yükleyince bir sembolik link ekleniyor 
+# Hayati olmayan programlar için bu dizin kullanılıyor.
+# ping, tar, unzip, sudo gibi.
+# Ayrıca distroya bir program yükleyince bir sembolik link ekleniyor
 # ki programa tek kelime ile terminalden erişelim.
 /usr/bin
 
@@ -374,7 +382,7 @@ Bu yöntem ile hangi kullanıcı sisteme girerse girsin çalıştırılacak scri
 sudo vim /etc/rc.local
 ```
 
-Burada `exit 0`'dan bir önceki satıra satırımızı ekleyebiliriz. 
+Burada `exit 0`'dan bir önceki satıra satırımızı ekleyebiliriz.
 
 - Eğer komutun sonuna ampersan `&` işareti koyarsak bunun anlamı script sürekli çalışacak, bir kez çalışıp kapanmayacak.
 - Eğer sona ampersan koymazsak ve program sürekli dönüyorsa; program hiç çalıştırılmaz.
@@ -409,7 +417,7 @@ sudo nano /home/pi/.bashrc
 Son satıra aşağıdaki kodu ekleyebiliriz.
 
 ```bash
-echo Running at boot 
+echo Running at boot
 sudo python /home/pi/sample.py
 ```
 
@@ -434,7 +442,7 @@ sudo vim /etc/init.d/sample.py
 ```
 
 Bir python script'i init.d methodu için nasıl başlamalı?
-    
+
 ```
 #!/usr/bin/env python
 # /etc/init.d/sample.py
@@ -472,4 +480,24 @@ sudo crontab -e
 @reboot python /home/pi/pytest.py > /home/pi/log.txt
 ```
 
-Dikkat!: Crontab yazarken sudo kullanılması tavsiye edilmiyor, bunun yerine root kullanıcısına bir crontab ekleyip sudo kullanmadan yazılabilir, uygulaması çok basit, "sudo crontab -e" komutu ile crontab scripti yazarken sudo kullanmamıza gerek kalmıyor.
+Dikkat!: `Crontab` yazarken sudo kullanılması tavsiye edilmiyor, bunun yerine root kullanıcısına bir `crontab` ekleyip `sudo` kullanmadan yazılabilir, uygulaması çok basit, `sudo crontab -e` komutu ile `crontab` scripti yazarken `sudo` kullanmamıza gerek kalmıyor.
+
+# Background Jobs
+
+Çalıştığımız bir uygulamayı konsol üstünden arka plana atıp sonradan yeniden çağırabiliriz.
+
+`fg` yani foreground komutu ile arka plana attığımız uygulamayı tekrardan öne çağırabiliriz ve işimize kaldığımız yerden devam edebiliriz. `fg nano` komutunu girdiğimizde mesela nano programı arkadaysa öne gelir. `jobs` komutunu arka plana atılmış işleri görebiliriz.
+
+`CTRL + Z` kombinasyonu ile arkaya uygulamayı background olarak atabiliriz.
+
+# Process
+
+İşletim sistemi altında çalışan tüm process'leri listelemek için `ps -A` diyebiliriz. Buradan aldığımız `PID` yani `process id` ile `kill` komutunu kullanarak process'i sonlandırabiliriz.
+
+Örnek: `sudo kill 12` komutu, 12 numaralı process'i sonlandırır.
+
+# BusyBox
+
+Linux sistemleri için bir program paketi. Gömülü sistemlerde kullanılmak üzere geliştirilmiş. Bunu yüklediğimiz zaman sistemimizde genel Linux programlarına sahip oluyoruz. `ls`, `cd` gibi bir çok temel program bununla birlikte geliyor.
+
+Android sistemlere insanlar `busybox` kurarak Linux'ta olan bir çok komut kullanılabilir hale getirilebiliyor.
