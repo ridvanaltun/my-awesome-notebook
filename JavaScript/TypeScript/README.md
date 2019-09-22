@@ -1,20 +1,20 @@
 # TypeScript
 
-Bu bir microsoft teknolojisi. Superset olarak tanımlanıyor. Amacı JavaScript'i C#, Java'ya benzetmek ve Js de yazması kolay olmayan bazı şeyleri kolaylaştırmak. Birinci önceliği ise OOP mantığını entegre etmek.
+Bu bir Microsoft teknolojisi. `Superset` olarak tanımlanıyor. Amacı JavaScript'i `C#`, `Java` gib i dillere benzetmek ve JS'de yazması kolay olmayan bazı şeyleri kolaylaştırmak. Birinci önceliği ise `OOP` mantığını entegre etmek.
 
-Bu teknoloji bir superset olduğu için güncel javascript ile yazdığımız kodu eski tarayıcıların destekleyeceği şekilde compile edebiliyor. Ticari uygulamalarda va çok kullanıcılı uygulamalarda bu çözüme ihtiyacımız var. Bu yapılan eski tarayıcı desteği ekleme işine `polyfill` deniyor. Ts bize polyfill desteği sağlıyor.
+Bu teknoloji bir `superset` olduğu için güncel JavaScript ile yazdığımız kodu eski tarayıcıların destekleyeceği şekilde `compile` edebiliyor. Ticari uygulamalarda va çok kullanıcılı uygulamalarda bu çözüme ihtiyacımız var. Bu yapılan eski tarayıcı desteği ekleme işine `polyfill` deniyor. `TS` bize `polyfill` desteği sağlıyor.
 
-Kullanımı çok kolay bir program. JavaScript için bir superset. NPM ile global polarak sistemimize yükleyip `tsc` yani typescript compiler programı ile kullanmaya başlayabiliriz.
+Kullanımı çok kolay bir program.  `NPM` ile global olarak sistemimize yükleyip `tsc` yani `typescript compiler` programı ile kullanmaya başlayabiliriz.
 
-Bu teknolojinin bize getirdiği en büyük avantaj adında da bulunduğu üzere tip atamalar. Normalde JavaScript `Type Safety` bir dil değil. Yani istediğimiz değişkene istediğimiz tipte bir değer atayabiliyoruz ve programımızı çalıştırıp ilgili kodun çalıştırıldığı kısma gelene kadar hata almıyoruz.
+Bu teknolojinin bize getirdiği en büyük avantaj adında da bulunduğu üzere tip atamaları. Normalde JavaScript `Type Safety` bir dil değil. Yani istediğimiz değişkene istediğimiz tipte bir değer atayabiliyoruz, bu sebeple programımızı çalıştırıp ilgili kodun çalıştırıldığı kısma gelene kadar değişken tipine bağlı olan hataları almıyoruz.
 
-Js `dinamik tip`'li bir dildir. Değişkene istediğimiz değeri atarız. Ts ile `static tip` desteği eklemiş oluyoruz.
+JS `dinamik tip`'li bir dildir. Değişkene istediğimiz değeri atarız. TS ile `static tip` desteği eklemiş oluyoruz.
 
-TS'nin eklediği bir çok OOP özelliği ES6 ile geldi zaten. TS ES6 ile uyumlu gidiyor, yani ileride ES6 ya geçmek istediğimiz zaman kolay bir şekilde geçebiliriz.
+`TS`'nin eklediği bir çok `OOP` özelliği `ES6` ile geldi zaten. `TS`, `ES6` ile uyumlu gidiyor, yani ileride `ES6` ya geçmek istediğimiz zaman kolay bir şekilde geçebiliriz.
 
 Kısaca compile time hatalar alarak debug süreci hızlanıyor.
 
-TypeScript ile değişkenimizin sadece number, string vs. aldığını tanımlıyoruz. Böylelikle hatalarımızı debug etmemiz kolaylaşıyor ve any type içeren değişkenleri kullanmamız azalıyor ki bu sayede de daha az hatalar yapıyoruz. Kısaca bize düzgün programlar yazmamızı sağlayacak güzel ve basit bir araç kendisi.
+`TypeScript` ile değişkenimizin sadece number, string vs. aldığını tanımlıyoruz. Böylelikle hatalarımızı debug etmemiz kolaylaşıyor ve `any type` içeren değişkenleri kullanmamız azalıyor ki bu sayede de daha az hatalar yapıyoruz. Kısaca bize düzgün programlar yazmamızı sağlayacak güzel ve basit bir araç kendisi.
 
 ## Usage
 
@@ -26,9 +26,9 @@ Normalde kodumuzu compile ttiğimizde en düşük ve default `ecmascript 3`'e ka
 
 ## Interface
 
-Bu özellik sayesinde kendi veri tipimizi oluşturuyoruz. Örneğin insan veri tipi oluşturup alabileceği değerleri belirleyebiliriz.
+Bu özellik sayesinde kendi veri tipimizi oluşturuyoruz. Örneğin insan adında bir veri tipi oluşturup alabileceği değerleri belirleyebiliriz.
 
-```ts
+```js
 interface Person = {
     name: String,
     height: Number,
