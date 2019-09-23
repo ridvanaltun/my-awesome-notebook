@@ -9,6 +9,7 @@ This repo just contains personal `cheat sheets` about some tech stacks. It is no
 - [Bash](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Bash)
 - [SQL](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/SQL)
 - [Git](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/Git)
+- [AJAX](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/AJAX)
 - [JavaScript](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/JavaScript)
   - [jQuery](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/JavaScript/jQuery)
   - [JavaScript DOM Manipulation](https://github.com/ridvanaltun/my-awesome-notebook/tree/master/JavaScript/JavaScript%20DOM%20Manipulation)
