@@ -35,6 +35,7 @@ Git hakkında bildiklerim.
   - [Log](#log)
   - [Fetch](#fetch)
   - [Syncing Fork](#syncing-fork)
+  - [Pull Request](#pull-request)
   - [Merging Tools](#merging-tools)
   - [Technical Terms](#technical-terms)
 
@@ -549,6 +550,29 @@ git fetch upstream
 
 # Yapılmış değişiklikleri master dalımıza uyguluyoruz
 git rebase upstream/master
+```
+
+## Pull Request
+
+Git içinde `git request-pull` diye bir komut var ancak bu komut `Github Pull Request` yada türevleri ile çok farklı. Git komutu yapılacak değişiklikleri bir email listesine atmamızı sağlıyor sadece. Yani kısaca `pull request` için Github gibi servislere ihtiyacımız var.
+
+Git'in komutunu kullanmak istersek aşağıdaki şekilde ilerleyebiliriz.
+
+```bash
+git request-pull origin/master feature/awesomeFeature
+```
+
+Komut satırından Github'da yaptığımız gibi pull request yapmak istersek bunun için geliştirilmiş araçları kullanmamız gerekiyor. Örneğin [hub](https://hub.github.com) adında bir araç var, bu araç ile github'ı konsol üstünden yönetebiliyoruz. Pull request için aşağıdaki gibi bir komut kullanabiliriz.
+
+```bash
+hub pull-request
+```
+
+Aynı zamanda gelen pull requestleri aşağıdaki gibi kontrol edebiliriz.
+
+```bash
+# "develop" dalında yapılmış en az 20 pr'ın URL'lerini listele
+hub pr list -L 20 -b develop --format='%t [%H] | %U%n'
 ```
 
 ## Merging Tools
