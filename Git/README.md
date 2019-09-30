@@ -14,7 +14,7 @@ Git hakkında bildiklerim.
   - [Git Bundle](#git-bundle)
   - [Git Submodules](#git-submodules)
   - [Git Hooks](#git-hooks)
-  - [Gitignore](#gitignore)
+  - [Ignore Files](#ignore-files)
   - [Clone](#clone)
   - [Branch](#branch)
   - [Tags](#tags)
@@ -119,9 +119,11 @@ Nelere `hook` yazılabilir:
 
 gibi. dahası da var.
 
-## Gitignore
+## Ignore Files
 
-Tanımladığımız dosya ve klasörler `git` tarafıdan yok sayılır.
+`.gitignore` dosyasına tanımladığımız dosya ve klasörler `git` tarafıdan yok sayılır.
+
+Bunun dışında lokal olarak ta dosyaları gizleyebiliriz. `.git/info/exclude` klasörü altına koyduğumuz bütün dosya ve klasörler `git` tarafından yok sayılır.
 
 ## Clone
 
