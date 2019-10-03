@@ -49,6 +49,16 @@ function go_for_it() {
 }
 ```
 
+`onreadystatechange` fonksiyonu sunucudan yanıt döndükten sonra çalışacak olan fonksiyondur. Bu method genellikle `readyState` ifadesi ile birlikte kullanılır. `readyState` ifadesinin 4 olmasına bakılır, eğer 4'e eşitse response sonrası yapılmak istenen işlemler gerçekleştirilir.
+
+ReadyState 5 farklı değerde olabilir:
+
+- 0: request not initialized
+- 1: server connection established
+- 2: request received
+- 3: processing request
+- 4: request finished and response ready
+
 ```javascript
 function go_for_it() {
     var xhr = new XMLHttpRequest();
@@ -62,14 +72,9 @@ function go_for_it() {
 
     xhr.send();
 }
-
-// ReadyState 5 farklı değerde olabilir
-// 0: request not initialized
-// 1: server connection established
-// 2: request received
-// 3: processing request
-// 4: request finished and response ready
 ```
+
+Aşağıdaki örnekte JSON bir veri çektik ve parçalayıp içinden ihtiyacımız olan bir veriyi aldık.
 
 ```javascript
 function go_for_it() {
@@ -77,8 +82,6 @@ function go_for_it() {
     xhr.open('GET', 'foo.com/bar', true);
     xhr.onload = function() {
         if(this.status == 200) {
-            // JSON bir kaynaktan veri çektik
-            // ve kaynağı parçaladık
             var user = JSON.parse(this.responseText);
             console.log(user.name);
         }
