@@ -6,45 +6,6 @@ Bash, kısaca terminal işlemlerimizi kolaylaştıran bir script dili. Bu dil il
 
 Bash kullanarak bir çok işi otomatize edebilir ve komplike bazı işleri daha kolay tamamlanabilir hale getirebiliriz.
 
-# Table of Contents
-
-<!-- toc -->
-
-- [Bash](#bash)
-- [Table of Contents](#table-of-contents)
-- [Bash Alternatives](#bash-alternatives)
-- [Shebang](#shebang)
-- [Login and Logout Scripts](#login-and-logout-scripts)
-- [Edit Profile File](#edit-profile-file)
-- [Execute Bash Scripts](#execute-bash-scripts)
-- [Define Variable](#define-variable)
-- [Environment Variables](#environment-variables)
-- [Assign Command's Output to Variable](#assign-commands-output-to-variable)
-- [Exit When Error](#exit-when-error)
-- [Getting Arguments from the Command Line](#getting-arguments-from-the-command-line)
-- [Shift](#shift)
-- [Getting Value from the User](#getting-value-from-the-user)
-- [Arithmetic Operations](#arithmetic-operations)
-- [Comparison](#comparison)
-- [User Input](#user-input)
-- [String](#string)
-- [Array](#array)
-- [Conditions](#conditions)
-- [Logical Operators](#logical-operators)
-- [File Operations](#file-operations)
-- [Case](#case)
-- [Loops](#loops)
-  - [For Loop](#for-loop)
-  - [While Loop](#while-loop)
-  - [Until Loop](#until-loop)
-  - [Special Commands](#special-commands)
-- [Functions](#functions)
-- [Select](#select)
-- [Extra Commands](#extra-commands)
-- [Resources](#resources)
-
-<!-- tocstop -->
-
 # Bash Alternatives
 
 Son dönemlerde popüler olan `Zsh` var. Daha çok var ancak ayrıca incelemeye gerek yok.

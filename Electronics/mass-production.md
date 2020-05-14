@@ -57,4 +57,4 @@ Voltaj testleri önemli, PCB üstünde hangi hattan ne kadar voltaj geçtiğini 
 
 # Sources
 
-[Elektronik Kartları Seri Üretime Hazırlamak](https://www.youtube.com/watch?v=iw5qXzi28cw)
+- [Elektronik Kartları Seri Üretime Hazırlamak](https://www.youtube.com/watch?v=iw5qXzi28cw)

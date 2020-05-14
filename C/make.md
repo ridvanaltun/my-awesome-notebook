@@ -13,17 +13,6 @@ Make komutu işimizi kolaylaştırır, bir chip için program yazmak yerine saye
 - Make programına hiçbir parametre vermeden sadece make diyerek çağırdığımızda makefile içindeki tanımladığımız ilk kuralı çalıştırır.
 - Makefile dosyası içinde değişken kullanabiliriz.
 
-# Table of Contents
-
-- [Make and Makefile](#make-and-makefile)
-- [Table of Contents](#table-of-contents)
-- [Usage](#usage)
-- [Bash Script vs Makefile](#bash-script-vs-makefile)
-- [Makefile Examples](#makefile-examples)
-  - [Example 1:](#example-1)
-  - [Example 2:](#example-2)
-- [Using a File with Rule Name](#using-a-file-with-rule-name)
-
 # Usage
 
 En yaygın kullanım amacı kaynak dosyalarını derlemek, birleştirmek ve çalışabiler hale getirmek. Derleme işlemi için otomatik olarak sırayla makefile içindeki komutları uygulayarak daha hızlı ve hatasız bir şekilde derlenmiş dosyalar elde ediyoruz. Amacı her teknolojide olduğu gibi işimizi kolaylaştırmak.

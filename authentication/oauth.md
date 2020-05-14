@@ -1,6 +1,4 @@
-# OAuth
-
-Açılımı: Open Authorization
+# OAuth (Open Authorization)
 
 `JWT` için token format, `OAuth` için bir protokol deniyor.
 

@@ -2,47 +2,6 @@
 
 Git hakkında bildiklerim.
 
-# Table of Contents
-
-- [Git](#git)
-- [Table of Contents](#table-of-contents)
-  - [Help](#help)
-  - [Branch Naming](#branch-naming)
-  - [Tricks](#tricks)
-  - [Git Object Model](#git-object-model)
-  - [Git Patch Mode](#git-patch-mode)
-  - [Git Bundle](#git-bundle)
-  - [Git Submodules](#git-submodules)
-  - [Git Hooks](#git-hooks)
-  - [Ignore Files](#ignore-files)
-  - [Clone](#clone)
-  - [Branch](#branch)
-  - [Tags](#tags)
-  - [Some Example of Git Commit Messages](#some-example-of-git-commit-messages)
-  - [Git Config](#git-config)
-  - [Security with SSH](#security-with-ssh)
-  - [Merge](#merge)
-  - [Rebase](#rebase)
-  - [Merge Conflict](#merge-conflict)
-  - [Stash](#stash)
-  - [Diff](#diff)
-  - [Patch](#patch)
-  - [Bare Repository](#bare-repository)
-  - [Push and Pull](#push-and-pull)
-  - [Cherry Pick](#cherry-pick)
-  - [Add Remote to Git Repo](#add-remote-to-git-repo)
-  - [Undoing Bad Commits](#undoing-bad-commits)
-  - [Log](#log)
-  - [Fetch](#fetch)
-  - [Syncing Fork](#syncing-fork)
-  - [Pull Request](#pull-request)
-  - [Prune](#prune)
-  - [Dismiss Permission Changes](#dismiss-permission-changes)
-- [Github](#github)
-  - [Find Repo](#find-repo)
-- [Merging Tools](#merging-tools)
-- [Technical Terms](#technical-terms)
-
 ## Help
 
 ```bash
