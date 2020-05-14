@@ -976,7 +976,7 @@ Bilgisayarların işlemci gücü artık yüksek olduğu için kullanılmıyor st
 
 - Statik kütüphaneler Unix sistemler için .a, Windows için .lib uzantısıdır.
 - İşlemci gücü arttığı için artık bu yöntem tercih edilmiyor olsa bile programımızın kaynak kodunu saklamak için için tercih edilebilir.
-- Unix sistemlerde statik kütüphanelerin ön eki lib ile başlar.
+- Unix sistemlerde statik kütüphanelerin ön eki lib ile başlar, örneğin, libusb.so, libfloat.lib vs.
 
 ### Creating a Static Library
 
@@ -995,6 +995,8 @@ ar cr libcalculator.a Calculator.o
 - Bu kütüphanenin kolaylığı ileride tüm projemizi derlemek zorunda kalmadan sadece kütüphane dosyasını değiştirerek programı değiştirmiş oluyoruz.
 
 Dinamik bir kütüphaneden tek bir fonksiyon çağırsak bile tüm dinamik kütüphane, hatta dinamik kütüphaneye bağlı diğer dinamik kütüphanelerin tamamı bellekte yer kaplar.
+
+Kısaca yazdığımızprogram dinamik bir kütüphane kullandığı zaman boyutu küçük kalır. Programlar ortak olarak bazı kütüphaneleri bu şekilde ortak kullanırlar.
 
 ### Creating a Dynamic Library
 

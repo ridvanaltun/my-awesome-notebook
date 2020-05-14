@@ -59,6 +59,12 @@ Misal bash programı bin klasörünün altında değil diyelim, nerede olduğunu
 
 Windows işletim sisteminde bir dosya açarken dosyanın uzantısına bakılır, Linux sistemlerde dosya açılırken ilk satırına bakılır, işaret edilen program ile dosya açılır. Bu sebeple shebag sadece linux içindir. Linux için dosya uzantısının bir önemi yoktur, dosyanın içeriğine bakmadan hangi program ile çalıştırılacağını anlamak için uzantı kullanabiliriz, örneğin `.sh` koyarak bir `shell` programı ile çalıştırılması gerektiğini anlarız.
 
+# History
+
+Bash üstünde yazdığımız tüm komutlar history dosyasına yazılır. Her kullanıcının history dosyası kendisine özeldir.
+
+**Trick:** Komutun başına bir boşluk bırakırsak eğer history içine kaydedilmez.
+
 # Login and Logout Scripts
 
 Bash'i login olup yada guest olarak kullanabiliriz. Bash programı login olduğumuzda özel bir yapı ile çalışır. Login olarak girmek için `--login` veya `-l` argümanıyla bash programını çalıştırmamız gerekiyor.
@@ -218,7 +224,7 @@ while[$1];
 do
     echo $1
     shift
-done 
+done
 
 : '
 INPUT: sh deneme.sh Osman Deneme Naber
@@ -634,7 +640,7 @@ echo "Sitenin adresi nedir?"
 writeSiteName
 
 : '
-OUTPUT: 
+OUTPUT:
     Sitenizin adresi Nedir?
     www.abc.com
 '
@@ -656,7 +662,7 @@ Görüldüğü üzere fonksiyon içindeki parametrelere $1 gibi ifadelerle eriş
 
 ```bash
 select gunsec in "Pazartesi" "Sali" "Carsamba"
-do 
+do
     echo "Secilen gun $gunsec"
     break
 done
@@ -673,7 +679,7 @@ Daha Komplex Bir Çözüm:
 
 ```bash
 select gunsec in "Pazartesi" "Sali" "Carsamba" "Cikis"
-do 
+do
     case $gunsec in
         Pazartesi) echo "pazartesi secildi";;
         Sali) echo "sali secildi";;
@@ -708,6 +714,16 @@ echo $(( ( RANDOM % 10 )  + 1 ))
 
 # OUTPUT: 1 ile 10 arası ragele bir sayı
 ```
+
+# Sh with -c flag
+
+-c bayrağı ile verdiğimiz bir string içindeki komutları çağır diyebiliyoruz.
+
+```bash
+$ sh -c "ls --all && cd .."
+```
+
+Docker ile bunu çok kullanıyorlar çünkü direkt olarak komut execute edebiliyoruz.
 
 # Resources
 

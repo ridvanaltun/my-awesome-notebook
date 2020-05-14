@@ -36,13 +36,17 @@ Git hakkında bildiklerim.
   - [Fetch](#fetch)
   - [Syncing Fork](#syncing-fork)
   - [Pull Request](#pull-request)
-  - [Merging Tools](#merging-tools)
-  - [Technical Terms](#technical-terms)
+  - [Prune](#prune)
+  - [Dismiss Permission Changes](#dismiss-permission-changes)
+- [Github](#github)
+  - [Find Repo](#find-repo)
+- [Merging Tools](#merging-tools)
+- [Technical Terms](#technical-terms)
 
 ## Help
 
 ```bash
-git help <command-name>
+$ git help <command-name>
 ```
 
 ## Branch Naming
@@ -65,18 +69,26 @@ junk      Throwaway branch created to experiment
 
 ## Git Object Model
 
-`blob` açılımı `binary large object`.
+Git arka planda nasıl çalışıyor öğrenmek için git obje modelini öğrenebiliriz. Git, `.git` klasörü içinde `Git Object Database` tutar. `.git/objects` klasörü içinde `SHA-1` ile şifrelenmiş, uniq bir ada sahip şekilde objeleri tutar. Örneğin herhangi bir onje `f7de3a39b026386f8f826bc230a112ae792ec035` ada sahiptir. `Object` klasörü içinde tüm objeler tutulur.
 
-Kaynak dosya içerikleri `blob`, dosya/klasör yapısı `tree` şeklinde gösterilir. Bir diğer obje ise `tag`.
+Git objeleri nedir peki?
 
-// TODO
+- blob (`binary large object`)
+- tree
+- commit
+
+Dosyalar `blob` ile gösterilir. Dosyanın adı veya izinleri bu obje içinde içermez. Sadece dosyanın içeriği bu obje içinde tutulur.
+
+`Tree` objeleri klasör gibidirler. İçlerinde sadece başka `tree` objeleri ve `blob` objeleri barındırırlar.
+
+`Commit` objesi içinde son commit hakkında bilgileri tutar.
 
 ## Git Patch Mode
 
 Git'in yapılma sebeplerinden biride bu. Linus Tovards'a e-posta yolu ile geliştiricilerden bir çok kod geliştirmesi alıyormuş, bunları `review` etmek zor bir işlem. Bu nedenle yapılmış olması olası.
 
 ```bash
-git add -p
+$ git add -p
 ```
 
 `hunk` denen bir olay var, türkçe karşılığı iri parça. `patch` işlemini yaptığımızda bize tek tek soruyor, istediğimiz değişiklikleri kolayca parça parça entegre edebiliyoruz.
@@ -104,7 +116,35 @@ Projemizi zip'lemiş gibi oluyoruz. İnsanlarla repo'muzu paylaşmak için bu y�
 
 ## Git Submodules
 
-// TODO
+Geliştirdiğimiz projede kütüphaneleri yada servisleri `submodule` olarak ekleyebiliyoruz. Sonrasında tek komutla `submodule`'ler güncellenebiliyor ve güncelleme sonrası commit atıp güncellenmiş kütüphane ve servislerle projemizi geliştirmeye devam ediyoruz.
+
+```bash
+# Projeyi submodule'ler ile birlikte klonla
+$ git clone --recursive <url>
+
+# Git projesine submodule ekledik
+$ git submodule add [URL to Git repo]
+
+# Gşt projesine ilgili deponun master dalını submodule olarak ekledik
+$ git submodule add -b master [URL to Git repo]
+
+# Eklediğimiz sunmodule'ü kurduk
+$ git submodule init
+
+# Bundan sonra yapmamız gereken şey projeyi uzak sunucuya göndermek
+$ git add [submodule directory]
+$ git commit -m "move submodule to latest commit in master"
+$ git push
+
+# submodule'e yapılmış tüm değişiklikleri origin'den pull ile güncelle
+$ git submodule update --remote
+
+# submodule'e yapılmış değişiklikleri originden rebase güncelle
+$ git submodule update --rebase --remote
+
+# tüm projeyi ve submodule'leri pull et
+$ git pull --recurse-submodules
+```
 
 ## Git Hooks
 
@@ -129,10 +169,10 @@ Bunun dışında lokal olarak ta dosyaları gizleyebiliriz. `.git/info/exclude` 
 
 ```bash
 # Projeyi gösterdiğimiz yere klonladık
-git clone <url> <where-to-clone>
+$ git clone <url> <where-to-clone>
 
 # Tüm projeyi kopyalamak yerine sadece branchi klonladık
-git clone <url> -b <branch-name> <where-to-clone>
+$ git clone <url> -b <branch-name> <where-to-clone>
 
 # Shallow Clone
 # Aşağıdaki komut ile sadece projenin HEAD versiyonunu indirdik
@@ -140,67 +180,78 @@ git clone <url> -b <branch-name> <where-to-clone>
 # Projenin yapısına göre binlerce megabyte indirmekten kurtulabiliriz
 # Git v1.9 sonrası için shallow clone'lar için pull ve push özelliği getirildi
 # Git Shallow'u bazı git programları desteklemiyor, açarken problem yaşıyor
-git clone --depth 1 <url>
+$ git clone --depth 1 <url>
+
+# Sadece master dalını klonlar
+$ git clone --single-branch --branch master <url>
 ```
 
 ## Branch
 
 ```bash
 # Repomuzdaki branchler listelenir
-git branch
+$ git branch
 
 # Tüm branchler uzun şekliyle listelenir
-git branch -a
+$ git branch -a
 
 # Yeni branch açmak
-git branch <branch-name>
+$ git branch <branch-name>
+
+# Belirtilen commit id ile yeni branch açmak
+$ git branch <branch-name> <commit-id>
 
 # Daldaki merge olmuş diğer dalları görmek
 # Bu şekilde işe yaramayan dalları görüp silebiliriz
-git branch --merged
+$ git branch --merged
 ```
 
 Branch'i hem local hem remote kaynak üstünden silebiliyoruz.
 
 ```bash
 # local olarak siler
-git branch -d branch_name
+$ git branch -d branch_name
 
 # local olarak siler
-git branch --delete branch_name
+$ git branch --delete branch_name
 
 # merge durumuna bakmadan local olarak siler
-git branch -D branch_name
+$ git branch -D branch_name
 
 # merge durumuna bakmadan local olarak siler
-git branch --delete-force branch_name
+$ git branch --delete-force branch_name
 
 # remote olarak siler
 # remote olarak branch'i sildikten sonra `git branch -a` komutunu girdiğimizde silinmiş gözükür
-git push origin --delete branch_name
+$ git push origin --delete branch_name
 ```
 
 ## Tags
 
-Tag sistemi aslında içeriği değiştirilemez branch. Bu kadar basit.
+Tag sistemi aslında içeriği değiştirilemez `branch`. Bu kadar basit.
 
 Tag yapısı 2'ye ayrılıyor. `Annotated` ve `Lightweight`.
 
-Annotated yani açıklamalı tag. İki tip arasında sadece ieçrdikleri meta data sayısı değişiyor.
+`Annotated` yani açıklamalı tag. İki tip arasında sadece içerdikleri meta data sayısı değişiyor.
 
-Açıklamalı tag açmak: `git tag -a v1.0.0`, burada a parametresi annotated olduğunu belirtiyor.
+```bash
+# tagleri listeler
+$ git tag
 
-Eğer tag mesajı eklemek istiyorsak `git tag -a v1.0.0 -m "Releasing version v1.0.0"` şeklinde bir kullanımı var.
+# lightweight tag açmak için tek yapmak gereken tag'e bir ad vermek
+$ git tag v1.0.0
 
-Lightweight tah açmak için tek yapmak gereken tag'e bir ad vermek. `git tag v1.0.0`
+# açıklamalı bir tag açtık, -a anlamı annotated
+$ git tag -a v1.0.0
 
-`git tag` komutu tagleri listeler
+# içinde mesaj olan bir tag açtık
+$ git tag -a v1.0.0 -m "Releasing version v1.0.0"
 
-Tag hakkında bilgi almak için `git show v1.0.0` şeklinde aratabiliriz. Bu komut bize tag hakkında bilgi verir.
+# belirtilen tag hakkında bilgi dönderir
+$ git show v1.0.0
+```
 
 `Tag` adı, `tag identifier` olarak geçiyor. Aynı `identifier` tekrar açamıyoruz. Örneğin `pre-relaese` adında bir tag'imiz var. Başka bir `pre-release` çıkarmadan önce öncekini silip yenisini açıyoruz.
-
-Tag silip aynı adda açmak yerine 
 
 ## Some Example of Git Commit Messages
 
@@ -210,20 +261,20 @@ Tag silip aynı adda açmak yerine
 
 ```bash
 # Global olarak kullanıcı adımı ayarladım
-git config --global user.name "Rıdvan Altun"
+$ git config --global user.name "Rıdvan Altun"
 
 # Global olarak e-posta adresimi ayarladım
-git config --global user.email "ridvanaltun@outlook.com"
+$ git config --global user.email "ridvanaltun@outlook.com"
 
 # Global olarak ayarladığım ada baktım
-git config --global --get user.name
+$ git config --global --get user.name
 
 # Tüm global .gitconfig ayarları listelenir
-git config --global --list
+$ git config --global --list
 
 # Projedeki master branch'in remote'unu origin olarak değiştiridm
 # Artık master dalında pull ve push yaparken origin üstünde çalışıcaz
-git config branch.master.remote origin
+$ git config branch.master.remote origin
 ```
 
 ## Security with SSH
@@ -238,13 +289,15 @@ Eğer şifre koyarsak her işlemde bize şifre sorar, şifre kısmını boş bı
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
 
-`.ssh/` kasörü içidne bride `known_hosts` adında bir dosya var. Bir siteye ilk defa SSH ile bağlanma isteği attığımızda SSH programı soruyor bize bu siteyi güvenilir kaynaklara ekleyeyim mi diye. Bu sayede `MITM` saldırılarına karşı korunuyoruz, araya birisi girip ben git serveriyim diye bizi kandıramıyor.
+`.ssh/` kasörü içinde birde `known_hosts` adında bir dosya var. Bir siteye ilk defa SSH ile bağlanma isteği attığımızda SSH programı soruyor bize bu siteyi güvenilir kaynaklara ekleyeyim mi diye. Bu sayede `MITM` saldırılarına karşı korunuyoruz, araya birisi girip ben git serveriyim diye bizi kandıramıyor.
 
 Bir siteteye manuel olarak SSH bağlantısı şu şekilde atmak mümkün: `ssh ldn01.jamieweb.net`
 
-Bir sitenin SSH key'ini şu şekilde manuel oalrak görmek mümkün: `ssh-keyscan ldn01.jamieweb.net`, known_hosts fosyasına buradan okuduğumuz verileri girerek te hazırlayabiliriz.
+Bir sitenin SSH key'ini şu şekilde manuel olarak görmek mümkün: `ssh-keyscan ldn01.jamieweb.net`, known_hosts dosyasına buradan okuduğumuz verileri girerek te hazırlayabiliriz.
 
-SSH programının kendi config dosyası var: `/etc/ssh/sshd_config`, bu dosya içinde hosts ne olursa olsun güven diye bir parametre var, istersek hiç bir host'a sordurtmadan tüm bağlantılarımızı gücenli kabül et te diyebiliriz.
+SSH programının kendi config dosyası var: `/etc/ssh/sshd_config`, bu dosya içinde hosts ne olursa olsun güven diye bir parametre var, istersek hiç bir host'a sordurtmadan tüm bağlantılarımızı güvenli kabül et diyebiliriz.
+
+`ssh-keygen -R domain.com` komutu ile `known_hosts` dosyamızı otomatik olarak güncelleyebiliyoruz. Git sunucu taşındığında mesela bu yöntem ile güncellememiz gerekecektir.
 
 ## Merge
 
@@ -255,6 +308,8 @@ Master dalına merge yapmak istiyoruz diyeim, master dalına geçiğ `master mer
 `squash` kelime anlamı sıkıştırmak, ezmek.
 
 Komutu girdikten sonra merge işlemi başarılı ancak yeni commit atmanız gerekli diye bir yazı çıkacak. Yani yeni bir commit mesajı girmemiz gerekiyor. `git commit -m "yeni commit"` şeklinde girebiliriz.
+
+`git merge --abort` komutu ile yaptığımız merge'i tamamen geri alabiliriz.
 
 ## Rebase
 
@@ -292,10 +347,10 @@ Karşıdan gelen tüm değişiklkleri kullan yada beni mkendi değişikliklerim 
 
 ```bash
 # tüm dosyalarda kendi değişikliğimiz kalsın
-git checkout --ours .
+$ git checkout --ours .
 
 # tüm dosyalarda karşıdan gelen değişikliği kabul et
-git checkout --theirs .
+$ git checkout --theirs .
 ```
 
 Devamında senaryo yine aynı. Değişiklikleri stage'e ekle ve commit'le.
@@ -308,35 +363,35 @@ Geçici olarak durumu kaydetmek için kullanıyoruz bunu. `git stash` komutu gir
 
 ```bash
 # Stashlerimizi görebiliriz
-git stash list
+$ git stash list
 
 # Son stash'imiz geri yüklenir ve stash'ler içinden silinir
-git stash pop
+$ git stash pop
 
 # Stash'imizi uyguladık, ancak silinmedi
-git stash apply stash@{1}
+$ git stash apply stash@{1}
 
 # Stash'i sildik
-git stash drop stash@{1}
+$ git stash drop stash@{1}
 
 # Stash'a diff attık, bakıyoruz neler değiştirmişim diye
-git stash show -p stash@{0}
+$ git stash show -p stash@{0}
 
 # Stash'ı özel bir isimle kaydettik. 'git stash list' yaparsak 'stash@{0}: message' şeklinde bir çıktı çıkacak
-git stash push -m "message"
+$ git stash push -m "message"
 ```
 
 ## Diff
 
 ```bash
 # Dalımızdaki değişiklikleri gösterir
-git diff
+$ git diff
 
 # İki commit arasındaki farkı gösterir
-git diff commit_id_one commit_id_two
+$ git diff commit_id_one commit_id_two
 
 # İki branch arasındaki dosyaların karşılaştırılması
-git diff brach1:path/to/file branch2:path/to/file
+$ git diff brach1:path/to/file branch2:path/to/file
 ```
 
 ## Patch
@@ -345,10 +400,10 @@ Stashyerine patch methodu tercih edilebilir. İnsanlar bu methodu çok bilmiyor.
 
 ```bash
 # Tüm değişiklikleri bir dosyaya kaydediyoruz
-git diff > some.patch
+$ git diff > some.patch
 
 # Dosyada değişiklikleri uyguluyoruz
-git apply some.patch
+$ git apply some.patch
 ```
 
 ## Bare Repository
@@ -367,58 +422,64 @@ Kısaca bare kurulum ile sadece git'in database kısmını alıyoruz, remote ama
 
 ```bash
 # Origin adlı remote'a, develop adındaki dalı push'la.
-git push origin develop
+$ git push origin develop
 
 # Origin'de yapılan değişiklikleri local'imizdeki repo'ya çek.
-git pull origin master
+$ git pull origin master
 
 # Yaparsak eğer budan sonra `pull` yaparken uzun uzun yazmamıza gerek kalmıyor.
 # Direkt olarak `git pull` komutu ile remote'dan çekebiliyoruz değişiklikleri.
 # Aynı şekilde `git push` içinde bir daha remote göstermemize gerek kalmıyor
 # Genelde ilk kez uzak repo'ya bağlanırken bu komut kullanılır
 # İnsanlar bunu ezbere kullanıyor ama ortada magical bir durum yok
-git push --set-upstream origin <branch> # yada
-git push -u origin <branch>
+$ git push --set-upstream origin <branch> # yada
+$ git push -u origin <branch>
 ```
 
 ## Cherry Pick
 
 Bir commit'i alıp başka bir branch'e uygulama işine `cherry pick` deniyor.
+Commit hash'i farklı geliyor.
+
+```bash
+# master branchindeki commitleri bulunduğumuz branch'e attık
+$ git cherry-pick master
+```
 
 ## Add Remote to Git Repo
 
 ```bash
 # Repo'ya remote ekle. Origin adı altında bir remote ekledik.
-git remote add origin <url>
+$ git remote add origin <url>
 
 # Repo'ya bağlanmış remote'ları listele
-git remote
+$ git remote
 
 # Repo'daki remote'ları detaylı listele, -v anlamı verbose.
-git remote -v
+$ git remote -v
 
 # Belirtilen remote'u sil.
-git remote remove <remote-adı>
+$ git remote remove <remote-adı>
 
 # Remote için verilen adı değiştir, örneğin origin inin
-git remote rename <remote-adı> <yeni-remote-adı>
+$ git remote rename <remote-adı> <yeni-remote-adı>
 
 # Remote'un URL'ini değiştir
-git remote set-url <remote-adı> <url>
+$ git remote set-url <remote-adı> <url>
 ```
 
 ## Undoing Bad Commits
 
 ```bash
 # Dosya üstünde yaptığımız değişikliği discard ediyoruz
-git checkout file_name
+$ git checkout file_name
 
 # Commit mesajını değiştirmek
 # Son attığımız commit'in mesajı değişti
 # Ancak bunun yanında commit'in hash'i de değişti çünkü mesaj commit'in bir parçası
 # Repo'yu kullanan insanlara sorun çıkarmamak için Git History'imizi değiştirmemeliyiz
 # Kısaca pushladığımız commitlerin history'sini değiştirmemeliyiz
-git commit --amend -m "Yeni Commit Mesajı"
+$ git commit --amend -m "Yeni Commit Mesajı"
 
 # Son commit'e ekstra dosya eklemek
 # Örneğin commit içinde bir adet dosyayı unuttuk
@@ -426,12 +487,12 @@ git commit --amend -m "Yeni Commit Mesajı"
 # Commit mesajını düzenlememiz için bir commit'in sayfası açılıyor
 # Düzenlemek zorunda değiliz, istersek bu sayfada commit mesajını değiştirebiliriz
 # Git History değişeceği için sadece push edilmemiş commitler üzerinde uygulanmalıdır
-git commit --amend
+$ git commit --amend
 
 # Son commit' ekstra oalrak stage'e eklediğimiz dosyaları ekledik
 # Commit mesajını değiştirmel zorunda değiliz çünkü --no-edit kullandık
 # Commit id değişiyor tabi
-git commit --amend --no-edit
+$ git commit --amend --no-edit
 
 # Commit'i yanlış branch'e attık
 # Commit'i silip diğer branch'e taşımalıyız
@@ -441,40 +502,40 @@ git commit --amend --no-edit
 # Verdiğimiz commit'e geri döndük, ancak eski commitlerdiğimiz değişiklikler geri döndü
 # git status komutu girdiğimizde tüm eski değişiklikler stage'e geri döndü
 # --soft parametresi ile hiç bir verimizi kaybetmedik
-git cherry-pick commit_id
-git reset --soft donmek_istedigimiz_commit_id
+$ git cherry-pick commit_id
+$ git reset --soft donmek_istedigimiz_commit_id
 
 # mixed reset
 # --soft ile aynı çalışıyor ancak commitler stage değil working directory'ye geliyor
-git reset donmek_istedigimiz_commit_id
+$ git reset donmek_istedigimiz_commit_id
 
 # hard reset
 # mantık yine aynı ancak bu sefer commit ile yazdığımız tüm değişiklikleri direkt olarak sildik
 # git status yaptığımızda geri aldığımız commit hakkında hiç bir şey olmayacak
-git reset --hard
+$ git reset --hard
 
 # Takip edilmeyen dosyaları silmek, Delete Unracked Files
 # burada d -> directory, f -> force anlamına geliyor
 # stage aşamasında olmayan, hiç commit görmemiş dosya ve klasörler silinir
 # d -> untracked varsa silmek için
-git clean -df
+$ git clean -df
 
 # Değiştirilen dosyaları eski haline getirmek
-git checkout -f
+$ git checkout -f
 
 # Clean komutu çalıştırıldığında hangi dosyalar silinecek gösterir
 # Dry run deniyor buna, -df parametresi ile clean yapmadan önce çalıştırıp çıktıya bakabiliriz
-git clean -nd
+$ git clean -nd
 
 # Yanlışlıkla dosya sildik, reset yaptık vs.
 # Silinen commit'in comit_id'sini öğrenmek için `git reflog` çalıştırırız
 # Yani --hard reset sonrası bile dosyalarımızı geri getirebiliyoruz
-git checkout geri_almak_istedigimiz_commit_in_id_si
+$ git checkout geri_almak_istedigimiz_commit_in_id_si
 
 # Bir dosyayı sildik veya değiştirip commit attık
 # Ancak dosyayı geri getirmek istiyoruz ama yanında bir çok dosya daha silmiştik
 # Sadece ilgili dosyayı geri getirebiliyoruz
-git checkout geri_almak_istedigimiz_commit_in_id_si alacağımız_dosyanın_yolu
+$ git checkout geri_almak_istedigimiz_commit_in_id_si alacağımız_dosyanın_yolu
 
 # Git History'sini değiştirmeden commitlerimiz üstünde değişiklik yapmak
 # İnsanlar projemizi Pull etmiş olacağı için History'yi değiştirecek bir şey yapmamalıyız
@@ -483,7 +544,7 @@ git checkout geri_almak_istedigimiz_commit_in_id_si alacağımız_dosyanın_yolu
 # Eski commit yerinde kalıyor, yeni commit ile eski committe yaptığımız değişiklikler kaldırılıyor
 # git diff ile özellikle neleri geri aldığımızı commit_id'leri belirterek görebiliriz
 # Dikkat edilmesi gerek: donmek istediğimiz değil, revert etmek istediğimiz commit'e kadar gösteriyoruz
-git revert commit_id
+$ git revert commit_id
 
 # Son iki commit'i default texxt editörümüzde hangi işlemden geçirmek istediğimzii sorar
 # İstersek tüm commitlerimizi elden tek bir komutla geçirebiliriz
@@ -497,32 +558,35 @@ git revert commit_id
 # Commit id bu işlemler sonrası değişir
 # Burada -i parametresi interaktif anlamına geliyor
 # NOT: 'git rebase --abort' komutu ile yaptığımız değişiklikleri geri alıp işemi iptal edebiliriz
-git rebase -i HEAD~2
+$ git rebase -i HEAD~2
+
+# ilk commit dahil tüm commitleri interaktif modda açar
+$ git rebase -i --root
 ```
 
 ## Log
 
 ```bash
 # Tek satırda yapılan tüm değişiklikleri gösterir
-git log --pretty=oneline
+$ git log --pretty=oneline
 
 # İstediğimiz remote'un dalına bakabiliriz
-git log upstream/cashflow
+$ git log upstream/cashflow
 
 # Hangi commit'te hangi dosyalar değişmiş gösterir
-git log --stat
+$ git log --stat
 
 # Yaptığımız tüm işlemler, reset, checkout, chery-pick, commit, amend vs. listelenir
-git reflog
+$ git reflog
 
 # Branch 2 de olan ama 1 de olmaya commitleri sıralar
-git log branch_name_one..branch_name_two
+$ git log branch_name_one..branch_name_two
 
 # Bir dosya üstünden geçen commitleri göster
-git log --follow -- filename
+$ git log --follow -- filename
 
 # Pager olmadan tüm çıktıyı gösteriyor
-git --no-pager log
+$ git --no-pager log
 ```
 
 ## Fetch
@@ -531,13 +595,13 @@ git --no-pager log
 
 ```bash
 # upstream adındaki remote'u güncelle
-git fetch upstream
+$ git fetch upstream
 
 # Tüm remote'ları güncelle
-git fetch --all
+$ git fetch --all
 
 # Tüm remote'ları güncelle, silinmiş bir dal varsa onuda sil
-git fetch --all --prune
+$ git fetch --all --prune
 ```
 
 ## Syncing Fork
@@ -545,13 +609,23 @@ git fetch --all --prune
 ```bash
 # Öncelikle forkladığımız projenin içine orjinal remote'u ekliyoruz
 # Remote'u upstream adında bir dala ekleyebiliriz
-git remote add upstream git://github.com/ORIGINAL-DEV-USERNAME/REPO-YOU-FORKED-FROM.git
+$ git remote add upstream git://github.com/ORIGINAL-DEV-USERNAME/REPO-YOU-FORKED-FROM.git
 
 # Remote'daki değişiklikleri upstream dalına çekiyoruz
-git fetch upstream
+$ git fetch upstream
 
 # Yapılmış değişiklikleri master dalımıza uyguluyoruz
-git rebase upstream/master
+$ git rebase upstream/master
+
+# Fork'umuza yeni bir branch yükledik
+$ git push origin branch_name
+
+# Fork'umuzdan branch sildik
+$ git push origin --delete branch_name
+
+# branch_name adlı remote dalını branch_name adında lokal olarak çektik
+# yeni dalları bu yöntemle çekebiliriz
+$ git fetch upstream branch_name:branch_name
 ```
 
 ## Pull Request
@@ -561,28 +635,78 @@ Git içinde `git request-pull` diye bir komut var ancak bu komut `Github Pull Re
 Git'in komutunu kullanmak istersek aşağıdaki şekilde ilerleyebiliriz.
 
 ```bash
-git request-pull origin/master feature/awesomeFeature
+$ git request-pull origin/master feature/awesomeFeature
 ```
 
-Komut satırından Github'da yaptığımız gibi pull request yapmak istersek bunun için geliştirilmiş araçları kullanmamız gerekiyor. Örneğin [hub](https://hub.github.com) adında bir araç var, bu araç ile github'ı konsol üstünden yönetebiliyoruz. Pull request için aşağıdaki gibi bir komut kullanabiliriz.
+Komut satırından Github'da yaptığımız gibi pull request yapmak istersek bunun için geliştirilmiş araçları kullanmamız gerekiyor. Örneğin [hub](https://hub.github.com) adında bir araç var, bu araç ile Github'ı konsol üstünden yönetebiliyoruz. Pull request için aşağıdaki gibi bir komut kullanabiliriz.
 
 ```bash
-hub pull-request
+$ hub pull-request
 ```
 
 Aynı zamanda gelen pull requestleri aşağıdaki gibi kontrol edebiliriz.
 
 ```bash
 # "develop" dalında yapılmış en az 20 pr'ın URL'lerini listele
-hub pr list -L 20 -b develop --format='%t [%H] | %U%n'
+$ hub pr list -L 20 -b develop --format='%t [%H] | %U%n'
 ```
 
-## Merging Tools
+## Prune
+
+Bu komut ile git projemizde bulunan ve hiç bir referansa bağlı olmayan yani kısaca kullanılamayan git objeleri silinir. Örneğin git reset komutu ile bir commit sildik diyelim, commit git history de silindi gözükse de silinen commit'e checkout ile gidebiliriz mesela. Git halen kendi içinde sildiğimiz commit hakkında bilgileri saklar. Git prune komutunu çalıştırdığımızda sildiğimiz commit'in hiç bir bağlantısı olmadığı için silinecektir.
+
+`git fetch --prune` komutu ile örneğin bir commitimiz merge edildi ve bir branch silindi, localimizde aynı branch'in silinmesini istiyorsak `git fetch --prune` komutu kullanmamız yeterli oluyor. Bu komutu `git fetch --all` hemen sonrası kullanabiliriz.
+
+```bash
+# git pprune komutunu çalıştırırsak neler silinecek listeler, eğer boş dönerse prune komutu bir şeyi silmeyecek demektir
+$ git prune --dry-run --verbose
+
+# fetch edilen depodaki silinen objeleri localdede siler
+$ git fetch --prune
+
+# origin'deki ref'i olmayan objeleri prune ile sildirdik
+$ git remote prune origin
+```
+
+## Dismiss Permission Changes
+
+`git config core.fileMode false` komutu ile dosya izininde yapılan değişiklikler git tarafından görmezden gelinir. Bormalde bir dosyanın iznini değiştirdiğimiz zaman dosya stage eklenir ve dosyayı commitlememiz gerekir, saçma bir kullanım olduğu için izin değişikliklerini görmezden gelebiliriz.
+
+## Merge Pull Request on Local
+
+Bazı zamanlar bazı projelerde pull requestler kabul edilmiyor ve kalıyor durdukları yerde. Yada pull requestin merge edilmeden önce test edilmesi gerekiyor, bu gibi durumlarda localimize merge isteğini kabul edebiliriz.
+
+```bash
+# 37 numaralı pr'yi pr37 adında bir branch haline getirerek indir
+$ git fetch upstream pull/37/head:pr37
+
+# pr37 adlı branche git
+$ git checkout pr37
+
+# pr update oldu diyelim, bu komut ile yapılan değişiklikleri localimize alabiliriz
+# bu komutu pr'nin oldupu branch içindeyken çalıştırmamız gerekiyor
+$ git pull upstream pull/37/head
+```
+
+# Github
+
+Github'ın kendine has bazı özellikleri.
+
+## Find Repo
+
+Bir kütüphane kullanacağız ancak kütüphaneyi nasıl kullanacağımızdan emin değiliz. Başka projelerin içine bakmak istiyoruz diyelim.
+
+> Github Proje Sayfası >> Insights >> Dependency graph >> Dependents
+
+Bu şekilde kütüphaneyi kullanan örnek projeleri görebiliriz.
+
+# Merging Tools
 
 Komut satırından `merge conflict`'leri yönetmek büyük projeler için zor, bu sebeple bize yardımcı olacak yazılımlar kullanmalıyız.
 
 // TODO
 
-## Technical Terms
+# Technical Terms
 
-**Origin:** Origin kısaca remote repo olarak adlandırabiliriz. Origin ismi sonradan değiştirilebilir ancak herkes origin kullanmayı tercih ediyor.
+**Origin:** Kısaca remote repo olarak adlandırabiliriz. Origin ismi sonradan değiştirilebilir ancak herkes origin kullanmayı tercih ediyor.
+**Upstream:** Bir repo'yu forkladığımız zaman origin bizim forkumuz olur, orjinal repo üstünde işlemler yapabilmek için upstream adında ikinci bir remote ekleyebiliriz. Upstream ismi vermek zorunda değiliz ancak genelde bu isim tercih ediliyor.
