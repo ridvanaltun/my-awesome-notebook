@@ -23,9 +23,8 @@ OAuth2'de iletişim `SSL` üstünden sağlandığı için OAuth1'deki kompleksli
 
 Bir web servisi. Projemize bunu ekleyerek web servisimize auth kısmı yazmaktan kurtuluyoruz. Popüler bir sistem. Literetürde `Identity Management Platform` olarak geçiyor.
 
-## OIDC
+## OIDC (OpenID Connect)
 
-Açılımı: OpenID Connect
 
 `OAuth2`'ye dayalı bir `authentication protocol`. Tek bir kullanıcı hesabıyla bu sistemi kullanan bütün sitelere girebiliyoruz. Bir nevi `Microsoft Pasaport`, `Google Account`, `Monzilla Persona`, `Facebook Connect` gibi bir yapı.
 

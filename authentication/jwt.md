@@ -1,6 +1,6 @@
 # JWT (JSON Web Tokens)
 
-Popüler bir yöntem. Session kullanmadan Authentication ve Authorization işimizi hallediyor. RESTful servislere entegre edilebiliyor. Session normalde sisteme depolanır ancak JWT ile sessipn'a depolamaya gerek kalmıyor. Session kullanırken `expired date` yönetimi daha kolay.
+Popüler bir yöntem. Session kullanmadan Authentication ve Authorization işimizi hallediyor. RESTful servislere entegre edilebiliyor. Session normalde sisteme depolanır ancak JWT ile session'a depolamaya gerek kalmıyor. Session kullanırken `expired date` yönetimi daha kolay.
 
 [Express ile JWT'nin birlikte kullanımına örnek](https://juffalow.com/javascript/express-server-with-jwt-authentication)
 
